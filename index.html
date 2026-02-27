@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripFactory & ORN Hotel Partnership - ITB Berlin 2025</title>
+    <title>TripFactory & ORN - Global Travel Partnership</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -25,8 +25,11 @@
             transform: translateY(-4px);
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
         }
-        .tripfactory-blue { color: #1e3a8a; }
-        .bg-tripfactory-blue { background-color: #1e3a8a; }
+        .orn-green { color: #84cc16; }
+        .bg-orn-green { background-color: #84cc16; }
+        .border-orn-green { border-color: #84cc16; }
+        .orn-blue { color: #1e3a8a; }
+        .bg-orn-blue { background-color: #1e3a8a; }
         .fade-in {
             animation: fadeIn 0.8s ease-in;
         }
@@ -45,17 +48,56 @@
             height: 4px;
             width: 100%;
         }
-        .stat-card {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            color: white;
-            border-radius: 16px;
-            padding: 1.5rem;
-            text-align: center;
+        .tripfactory-blue { color: #1e3a8a; }
+        .bg-tripfactory-blue { background-color: #1e3a8a; }
+        .print-friendly {
+            print-color-adjust: exact;
+            -webkit-print-color-adjust: exact;
         }
-        .map-container {
-            background: #0f172a;
-            border-radius: 16px;
-            overflow: hidden;
+        .lang-flag {
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            filter: grayscale(30%);
+        }
+        .lang-flag:hover, .lang-flag.active {
+            transform: scale(1.2);
+            filter: grayscale(0%);
+        }
+        .lang-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 50;
+            min-width: 200px;
+            display: none;
+        }
+        .lang-dropdown.show {
+            display: block;
+        }
+        .lang-option {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .lang-option:hover {
+            background: #f3f4f6;
+        }
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
@@ -65,25 +107,62 @@
     <div class="brand-bar"></div>
 
     <!-- Header -->
-    <header class="w-full bg-white border-b border-gray-100">
+    <header class="w-full bg-white border-b border-gray-100 relative">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-24">
                 <div class="flex items-center space-x-4">
+                    <!-- TripFactory Logo -->
                     <div class="logo-container">
                         <img src="./tripfactory-logo.png" alt="TripFactory" class="h-8 w-auto">
                     </div>
                     <div class="hidden md:block text-gray-300">|</div>
+                    <!-- ORN Logo -->
                     <div class="logo-container hidden md:block">
                         <img src="./orn-logo.png" alt="ORN" class="h-8 w-auto">
                     </div>
                     <div class="hidden md:block text-gray-300">|</div>
+                    <!-- Nexus DMC Logo -->
                     <div class="logo-container hidden md:block">
                         <img src="./nexus-logo.png" alt="Nexus DMC" class="h-8 w-auto">
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-sm font-medium text-gray-600">ITB Berlin 2025</span>
                     <span class="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">ISO 27001:2022</span>
+                    
+                    <!-- Language Selector -->
+                    <div class="relative ml-4">
+                        <button onclick="toggleLangDropdown()" class="flex items-center space-x-2 px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+                            <span id="current-flag">🇬🇧</span>
+                            <span class="text-sm font-medium text-gray-700" id="current-lang">English</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-400"></i>
+                        </button>
+                        <div id="lang-dropdown" class="lang-dropdown">
+                            <div class="lang-option" onclick="changeLanguage('en')">
+                                <span class="mr-3 text-2xl">🇬🇧</span>
+                                <span>English</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('es')">
+                                <span class="mr-3 text-2xl">🇪🇸</span>
+                                <span>Español</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('de')">
+                                <span class="mr-3 text-2xl">🇩🇪</span>
+                                <span>Deutsch</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('fr')">
+                                <span class="mr-3 text-2xl">🇫🇷</span>
+                                <span>Français</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('ar')">
+                                <span class="mr-3 text-2xl">🇸🇦</span>
+                                <span>العربية</span>
+                            </div>
+                            <div class="lang-option" onclick="changeLanguage('hi')">
+                                <span class="mr-3 text-2xl">🇮🇳</span>
+                                <span>हिन्दी</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -95,20 +174,20 @@
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="fade-in">
                     <div class="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-medium mb-6">
-                        <i class="fas fa-calendar-alt mr-2"></i>
-                        March 4-6, 2025 • Messe Berlin
+                        <i class="fas fa-globe mr-2"></i>
+                        <span data-translate="global_partner">Global Travel Partner</span>
                     </div>
                     <h1 class="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-                        Hotel Partnership <br>
-                        <span class="gradient-text">Opportunity</span>
+                        <span data-translate="strategic_travel">Strategic Travel</span><br>
+                        <span class="gradient-text" data-translate="partnerships">Partnerships</span>
                     </h1>
-                    <p class="text-xl text-gray-600 mb-6 leading-relaxed">
-                        Connect with <strong>TripFactory</strong> — India's largest holiday travel company — and <strong>ORN</strong> — our global DMC network. 
-                        Direct distribution, guaranteed volume, zero intermediaries.
+                    <p class="text-xl text-gray-600 mb-6 leading-relaxed" data-translate="hero_desc">
+                        Connect with <strong>TripFactory</strong> — a leading global holiday travel company — and <strong>ORN</strong> — our worldwide DMC network. 
+                        Direct distribution, guaranteed volume, zero intermediaries across hotels, flights, ground services and attractions.
                     </p>
                     <div class="flex flex-wrap gap-3 mb-8">
                         <span class="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                            <i class="fas fa-building mr-2"></i>TripFactory: India's #1 Holiday Brand
+                            <i class="fas fa-building mr-2"></i>TripFactory: Global Holiday Brand
                         </span>
                         <span class="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
                             <i class="fas fa-globe mr-2"></i>ORN: 5 Continents, 104 Nationalities
@@ -129,19 +208,19 @@
                         <div class="grid grid-cols-2 gap-6">
                             <div class="text-center p-4 bg-gray-50 rounded-2xl">
                                 <div class="text-3xl font-bold text-tripfactory-blue">500K+</div>
-                                <div class="text-sm text-gray-600">Indian Travellers</div>
+                                <div class="text-sm text-gray-600" data-translate="global_travellers">Global Travellers</div>
                             </div>
                             <div class="text-center p-4 bg-gray-50 rounded-2xl">
                                 <div class="text-3xl font-bold text-tripfactory-blue">104</div>
-                                <div class="text-sm text-gray-600">Nationalities</div>
+                                <div class="text-sm text-gray-600" data-translate="nationalities">Nationalities</div>
                             </div>
                             <div class="text-center p-4 bg-gray-50 rounded-2xl">
                                 <div class="text-3xl font-bold text-tripfactory-blue">5</div>
-                                <div class="text-sm text-gray-600">Continents</div>
+                                <div class="text-sm text-gray-600" data-translate="continents">Continents</div>
                             </div>
                             <div class="text-center p-4 bg-gray-50 rounded-2xl">
-                                <div class="text-3xl font-bold text-tripfactory-blue">30+</div>
-                                <div class="text-sm text-gray-600">Countries</div>
+                                <div class="text-3xl font-bold text-tripfactory-blue">$60B</div>
+                                <div class="text-sm text-gray-600">HCL Group</div>
                             </div>
                         </div>
                         <div class="mt-6 pt-6 border-t border-gray-100 text-center">
@@ -154,167 +233,79 @@
         </div>
     </section>
 
-    <!-- Impressive Stats Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Scale & Reach</h2>
-                <p class="text-gray-600">Real numbers that matter to hotel partners</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-                <div class="stat-card">
-                    <div class="text-4xl font-bold mb-2">2.5M+</div>
-                    <div class="text-blue-100 text-sm">Total Guests Served</div>
-                    <div class="text-xs text-blue-200 mt-1">Since inception</div>
-                </div>
-                <div class="stat-card">
-                    <div class="text-4xl font-bold mb-2">500K+</div>
-                    <div class="text-blue-100 text-sm">Annual Travellers</div>
-                    <div class="text-xs text-blue-200 mt-1">Yearly volume</div>
-                </div>
-                <div class="stat-card">
-                    <div class="text-4xl font-bold mb-2">$150M+</div>
-                    <div class="text-blue-100 text-sm">Annual Booking Value</div>
-                    <div class="text-xs text-blue-200 mt-1">Hotel revenue generated</div>
-                </div>
-                <div class="stat-card">
-                    <div class="text-4xl font-bold mb-2">1.2M</div>
-                    <div class="text-blue-100 text-sm">Room Nights/Year</div>
-                    <div class="text-xs text-blue-200 mt-1">Global inventory</div>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="text-3xl font-bold text-tripfactory-blue mb-2">10,000+</div>
-                    <div class="text-gray-600 text-sm">Travel Agent Partners</div>
-                    <div class="text-xs text-gray-500 mt-1">Across India</div>
-                </div>
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="text-3xl font-bold text-tripfactory-blue mb-2">5,000+</div>
-                    <div class="text-gray-600 text-sm">Groups Delivered</div>
-                    <div class="text-xs text-gray-500 mt-1">Annually</div>
-                </div>
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="text-3xl font-bold text-tripfactory-blue mb-2">250K+</div>
-                    <div class="text-gray-600 text-sm">Europe Customers</div>
-                    <div class="text-xs text-gray-500 mt-1">Top destination</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Global Presence Map -->
+    <!-- The Ecosystem -->
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Global Presence</h2>
-                <p class="text-gray-600">On-ground operations in 30+ countries across 5 continents</p>
-            </div>
-
-            <div class="map-container shadow-2xl">
-                <img src="./global-map.png" alt="ORN Worldwide Presence - 30+ Countries, 104 Nationalities" class="w-full h-auto">
-            </div>
-
-            <div class="grid md:grid-cols-5 gap-4 mt-8">
-                <div class="bg-blue-50 rounded-xl p-4 text-center border border-blue-100">
-                    <div class="text-2xl font-bold text-tripfactory-blue mb-1">9</div>
-                    <div class="text-sm text-gray-600">Europe Stations</div>
-                </div>
-                <div class="bg-green-50 rounded-xl p-4 text-center border border-green-100">
-                    <div class="text-2xl font-bold text-green-600 mb-1">4</div>
-                    <div class="text-sm text-gray-600">Middle East Hubs</div>
-                </div>
-                <div class="bg-purple-50 rounded-xl p-4 text-center border border-purple-100">
-                    <div class="text-2xl font-bold text-purple-600 mb-1">6</div>
-                    <div class="text-sm text-gray-600">Asia-Pacific Offices</div>
-                </div>
-                <div class="bg-orange-50 rounded-xl p-4 text-center border border-orange-100">
-                    <div class="text-2xl font-bold text-orange-600 mb-1">5</div>
-                    <div class="text-sm text-gray-600">US Cities</div>
-                </div>
-                <div class="bg-red-50 rounded-xl p-4 text-center border border-red-100">
-                    <div class="text-2xl font-bold text-red-600 mb-1">6</div>
-                    <div class="text-sm text-gray-600">South America</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- The Ecosystem -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">The TripFactory-ORN Ecosystem</h2>
-                <p class="text-gray-600 max-w-3xl mx-auto">Three powerful brands, one seamless global network delivering exceptional travel experiences.</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="ecosystem_title">The TripFactory-ORN Ecosystem</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto" data-translate="ecosystem_desc">Three powerful brands, one seamless global network delivering exceptional travel experiences worldwide.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- TripFactory -->
-                <div class="bg-white rounded-2xl p-8 border-2 border-blue-100 card-hover">
+                <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border-2 border-blue-100 card-hover">
                     <div class="mb-6">
                         <img src="./tripfactory-logo.png" alt="TripFactory" class="h-12 w-auto">
                     </div>
                     <h3 class="text-xl font-bold text-tripfactory-blue mb-3">TripFactory</h3>
-                    <p class="text-sm font-semibold text-gray-600 mb-4">India's Largest Holiday Travel Company</p>
+                    <p class="text-sm font-semibold text-gray-600 mb-4" data-translate="tf_tagline">Global Holiday Travel Company</p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>500,000+ Indian travellers annually</span>
+                            <span data-translate="tf_1">500,000+ global travellers annually</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Pan-India retail presence</span>
+                            <span data-translate="tf_2">Worldwide retail presence</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>B2C and B2B holiday packages</span>
+                            <span data-translate="tf_3">B2C and B2B holiday packages</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Customised group tours</span>
+                            <span data-translate="tf_4">Customised group tours</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>MICE and corporate travel</span>
+                            <span data-translate="tf_5">MICE and corporate travel</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- ORN -->
-                <div class="bg-white rounded-2xl p-8 border-2 border-green-100 card-hover">
+                <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border-2 border-green-100 card-hover">
                     <div class="mb-6">
                         <img src="./orn-logo.png" alt="ORN" class="h-12 w-auto">
                     </div>
                     <h3 class="text-xl font-bold text-green-700 mb-3">ORN</h3>
-                    <p class="text-sm font-semibold text-gray-600 mb-4">Global DMC & Operations Network</p>
+                    <p class="text-sm font-semibold text-gray-600 mb-4" data-translate="orn_tagline">Global DMC & Operations Network</p>
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>On-ground operations in 5 continents</span>
+                            <span data-translate="orn_1">On-ground operations in 5 continents</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Owned vehicles & local teams</span>
+                            <span data-translate="orn_2">Owned vehicles & local teams</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>24/7 support & escalation</span>
+                            <span data-translate="orn_3">24/7 support & escalation</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Direct supplier relationships</span>
+                            <span data-translate="orn_4">Direct supplier relationships</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>104 nationalities served</span>
+                            <span data-translate="orn_5">104 nationalities served</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Nexus DMC -->
-                <div class="bg-white rounded-2xl p-8 border-2 border-purple-100 card-hover">
+                <div class="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-8 border-2 border-purple-100 card-hover">
                     <div class="mb-6">
                         <img src="./nexus-logo.png" alt="Nexus DMC" class="h-12 w-auto">
                     </div>
@@ -323,23 +314,23 @@
                     <ul class="space-y-2 text-sm text-gray-600">
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Unified global DMC network</span>
+                            <span data-translate="nexus_1">Unified global DMC network</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Standardised quality across regions</span>
+                            <span data-translate="nexus_2">Standardised quality across regions</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Centralised contracting</span>
+                            <span data-translate="nexus_3">Centralised contracting</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Technology-enabled operations</span>
+                            <span data-translate="nexus_4">Technology-enabled operations</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
-                            <span>Single point of contact</span>
+                            <span data-translate="nexus_5">Part of $60B HCL Group</span>
                         </li>
                     </ul>
                 </div>
@@ -348,13 +339,13 @@
     </section>
 
     <!-- What TripFactory Does -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
                     <img src="./tripfactory-logo.png" alt="TripFactory" class="h-16 w-auto mb-6">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">What TripFactory Does</h2>
-                    <p class="text-gray-600 mb-8 text-lg">India's leading holiday travel platform, connecting millions of travellers with curated experiences worldwide.</p>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6" data-translate="what_we_do">What TripFactory Does</h2>
+                    <p class="text-gray-600 mb-8 text-lg" data-translate="what_we_do_desc">TripFactory is a leading global holiday travel platform, connecting millions of travellers with curated experiences worldwide.</p>
                     
                     <div class="space-y-6">
                         <div class="flex items-start">
@@ -362,8 +353,8 @@
                                 <i class="fas fa-users text-tripfactory-blue text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1">B2C Holiday Packages</h4>
-                                <p class="text-sm text-gray-600">Direct-to-consumer customised holidays, honeymoon packages, family vacations across 50+ countries.</p>
+                                <h4 class="font-bold text-gray-900 mb-1" data-translate="b2c_title">B2C Holiday Packages</h4>
+                                <p class="text-sm text-gray-600" data-translate="b2c_desc">Direct-to-consumer customised holidays, honeymoon packages, family vacations across 50+ countries.</p>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -371,8 +362,8 @@
                                 <i class="fas fa-briefcase text-tripfactory-blue text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1">B2B Travel Agent Network</h4>
-                                <p class="text-sm text-gray-600">Empowering 10,000+ travel agents with competitive rates and destination support.</p>
+                                <h4 class="font-bold text-gray-900 mb-1" data-translate="b2b_title">B2B Travel Agent Network</h4>
+                                <p class="text-sm text-gray-600" data-translate="b2b_desc">Empowering 10,000+ travel agents with competitive rates and destination support.</p>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -380,8 +371,8 @@
                                 <i class="fas fa-building text-tripfactory-blue text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1">MICE & Corporate Travel</h4>
-                                <p class="text-sm text-gray-600">Meetings, incentives, conferences for India's leading corporations.</p>
+                                <h4 class="font-bold text-gray-900 mb-1" data-translate="mice_title">MICE & Corporate Travel</h4>
+                                <p class="text-sm text-gray-600" data-translate="mice_desc">Meetings, incentives, conferences for leading corporations worldwide.</p>
                             </div>
                         </div>
                         <div class="flex items-start">
@@ -389,36 +380,104 @@
                                 <i class="fas fa-user-friends text-tripfactory-blue text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-gray-900 mb-1">Group Tours</h4>
-                                <p class="text-sm text-gray-600">Scheduled departures to Europe, Southeast Asia, Middle East with guaranteed departures.</p>
+                                <h4 class="font-bold text-gray-900 mb-1" data-translate="group_title">Group Tours</h4>
+                                <p class="text-sm text-gray-600" data-translate="group_desc">Scheduled departures to Europe, Southeast Asia, Middle East with guaranteed departures.</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">TripFactory by Numbers</h3>
+                <div class="bg-white rounded-3xl p-8 shadow-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6" data-translate="by_numbers">TripFactory by Numbers</h3>
                     <div class="grid grid-cols-2 gap-6">
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-sm">
+                        <div class="text-center p-6 bg-blue-50 rounded-2xl">
                             <div class="text-4xl font-bold text-tripfactory-blue">500K+</div>
-                            <div class="text-sm text-gray-600">Travellers Annually</div>
+                            <div class="text-sm text-gray-600" data-translate="travellers_annually">Travellers Annually</div>
                         </div>
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-sm">
+                        <div class="text-center p-6 bg-blue-50 rounded-2xl">
                             <div class="text-4xl font-bold text-tripfactory-blue">10K+</div>
-                            <div class="text-sm text-gray-600">Travel Agent Partners</div>
+                            <div class="text-sm text-gray-600" data-translate="agent_partners">Travel Agent Partners</div>
                         </div>
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-sm">
+                        <div class="text-center p-6 bg-blue-50 rounded-2xl">
                             <div class="text-4xl font-bold text-tripfactory-blue">50+</div>
-                            <div class="text-sm text-gray-600">Countries Covered</div>
+                            <div class="text-sm text-gray-600" data-translate="countries_covered">Countries Covered</div>
                         </div>
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-sm">
+                        <div class="text-center p-6 bg-blue-50 rounded-2xl">
                             <div class="text-4xl font-bold text-tripfactory-blue">100+</div>
-                            <div class="text-sm text-gray-600">Cities in India</div>
+                            <div class="text-sm text-gray-600" data-translate="source_markets">Source Markets</div>
                         </div>
                     </div>
-                    <div class="mt-6 p-4 bg-white rounded-xl shadow-sm">
-                        <p class="text-sm text-gray-600 text-center"><strong>Key Markets:</strong> Europe, Southeast Asia, Middle East, USA, Australia, New Zealand</p>
+                    <div class="mt-6 p-4 bg-gray-50 rounded-xl">
+                        <p class="text-sm text-gray-600 text-center"><strong data-translate="key_markets">Key Markets:</strong> <span data-translate="markets_list">Europe, Southeast Asia, Middle East, USA, Australia, New Zealand, Indian Subcontinent, East Asia</span></p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategic Partnership Services -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="partnership_services">Strategic Partnership Services</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto" data-translate="partnership_desc">Comprehensive travel solutions across the entire value chain. Partner with us for direct access to global distribution.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Hotels -->
+                <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border-2 border-blue-100 card-hover text-center">
+                    <div class="service-icon bg-blue-100 text-blue-600 mx-auto">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-translate="hotels_title">Hotels & Accommodation</h3>
+                    <p class="text-sm text-gray-600 mb-4" data-translate="hotels_desc">City hotels, resorts, boutique properties, serviced apartments. All categories from 3 to 5-star.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 text-left">
+                        <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2 text-xs"></i> <span data-translate="hotel_1">Guaranteed room nights</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2 text-xs"></i> <span data-translate="hotel_2">Direct net rates</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-2 text-xs"></i> <span data-translate="hotel_3">MICE blocks</span></li>
+                    </ul>
+                </div>
+
+                <!-- Flights -->
+                <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 border-2 border-green-100 card-hover text-center">
+                    <div class="service-icon bg-green-100 text-green-600 mx-auto">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-translate="flights_title">Flights & Air</h3>
+                    <p class="text-sm text-gray-600 mb-4" data-translate="flights_desc">Charter flights, scheduled air, private aviation. Group bookings and individual seats.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 text-left">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-translate="flight_1">Group allocations</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-translate="flight_2">Charter partnerships</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2 text-xs"></i> <span data-translate="flight_3">Interline deals</span></li>
+                    </ul>
+                </div>
+
+                <!-- Ground -->
+                <div class="bg-gradient-to-br from-purple-50 to-white rounded-2xl p-8 border-2 border-purple-100 card-hover text-center">
+                    <div class="service-icon bg-purple-100 text-purple-600 mx-auto">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-translate="ground_title">Ground Services</h3>
+                    <p class="text-sm text-gray-600 mb-4" data-translate="ground_desc">Transfers, coach tours, car rentals, rail passes. End-to-end ground transportation.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 text-left">
+                        <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2 text-xs"></i> <span data-translate="ground_1">Own fleet partnerships</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2 text-xs"></i> <span data-translate="ground_2">Multi-lingual guides</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-purple-500 mr-2 text-xs"></i> <span data-translate="ground_3">24/7 operations</span></li>
+                    </ul>
+                </div>
+
+                <!-- Attractions -->
+                <div class="bg-gradient-to-br from-orange-50 to-white rounded-2xl p-8 border-2 border-orange-100 card-hover text-center">
+                    <div class="service-icon bg-orange-100 text-orange-600 mx-auto">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-translate="attractions_title">Attractions & Experiences</h3>
+                    <p class="text-sm text-gray-600 mb-4" data-translate="attractions_desc">Theme parks, museums, shows, activities, dining. Curated experiences for all segments.</p>
+                    <ul class="text-sm text-gray-600 space-y-1 text-left">
+                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2 text-xs"></i> <span data-translate="attraction_1">Skip-the-line access</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2 text-xs"></i> <span data-translate="attraction_2">Group rates</span></li>
+                        <li class="flex items-center"><i class="fas fa-check text-orange-500 mr-2 text-xs"></i> <span data-translate="attraction_3">Exclusive experiences</span></li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -428,8 +487,8 @@
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Traditional vs. TripFactory-ORN</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Stop losing margin to middlemen. Our direct model puts you in control.</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="model_comparison">Traditional vs. TripFactory-ORN</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto" data-translate="model_desc">Stop losing margin to middlemen. Our direct model puts you in control.</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
@@ -439,24 +498,24 @@
                         <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
                             <i class="fas fa-times text-red-600"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-700">Traditional Model</h3>
+                        <h3 class="text-xl font-bold text-gray-700" data-translate="traditional">Traditional Model</h3>
                     </div>
                     <div class="space-y-3 mb-6 text-sm text-gray-600">
                         <div class="flex items-center">
                             <i class="fas fa-arrow-right text-gray-400 mr-2 text-xs"></i>
-                            Customer → Agent → Wholesaler → OTA → DMC → Hotel
+                            <span data-translate="trad_1">Customer → Agent → Wholesaler → OTA → DMC → Supplier</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-arrow-right text-gray-400 mr-2 text-xs"></i>
-                            20-30% commission stack
+                            <span data-translate="trad_2">20-30% commission stack</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-arrow-right text-gray-400 mr-2 text-xs"></i>
-                            Delayed payments (60-90 days)
+                            <span data-translate="trad_3">Delayed payments (60-90 days)</span>
                         </div>
                     </div>
                     <div class="pt-4 border-t border-gray-100">
-                        <span class="text-red-600 font-semibold">Lower net revenue</span>
+                        <span class="text-red-600 font-semibold" data-translate="lower_revenue">Lower net revenue</span>
                     </div>
                 </div>
 
@@ -471,32 +530,104 @@
                     <div class="space-y-3 mb-6 text-sm text-gray-700">
                         <div class="flex items-center font-medium">
                             <i class="fas fa-arrow-right text-green-500 mr-2 text-xs"></i>
-                            TripFactory → <span class="text-tripfactory-blue font-bold mx-1">ORN</span> → Your Hotel
+                            TripFactory → <span class="text-tripfactory-blue font-bold mx-1">ORN</span> → <span data-translate="your_business">Your Business</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-arrow-right text-green-500 mr-2 text-xs"></i>
-                            Single direct contract
+                            <span data-translate="direct_2">Single direct contract</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-arrow-right text-green-500 mr-2 text-xs"></i>
-                            30-day fast settlement
+                            <span data-translate="direct_3">30-day fast settlement</span>
                         </div>
                     </div>
                     <div class="pt-4 border-t border-gray-100">
-                        <span class="text-green-600 font-bold">Higher revenue + Quality guests</span>
+                        <span class="text-green-600 font-bold" data-translate="higher_revenue">Higher revenue + Quality guests</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Hotel Requirements -->
+    <!-- Global Presence -->
     <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="global_footprint">Global Footprint, Local Execution</h2>
+                <p class="text-gray-600" data-translate="global_desc">ORN owns the last mile in 5 continents. Direct operations, not outsourcing.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-landmark text-2xl text-tripfactory-blue"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2" data-translate="europe">Europe</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>9 Stations</li>
+                        <li>100+ Team</li>
+                        <li>59 Tour Buses</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mosque text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2" data-translate="middle_east">Middle East</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>Dubai Hub</li>
+                        <li>Oman & Bahrain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-umbrella-beach text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2" data-translate="asia_pacific">Asia-Pacific</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>Melbourne HQ</li>
+                        <li>Bali Operations</li>
+                        <li>20 Vehicles</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-city text-2xl text-orange-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2" data-translate="north_america">North America</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>64-Person Team</li>
+                        <li>NY • LA • Florida</li>
+                        <li>Timezone Aligned</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mountain text-2xl text-red-600"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2" data-translate="south_america">South America</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>Peru Office</li>
+                        <li>Argentina Hub</li>
+                        <li>Brazil Coverage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partnership Criteria -->
+    <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Hotel Partnership Criteria</h2>
-                    <p class="text-gray-600 mb-8">Seeking quality partners for TripFactory's Indian outbound market and ORN's global operations.</p>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6" data-translate="partnership_criteria">Partnership Criteria</h2>
+                    <p class="text-gray-600 mb-8" data-translate="criteria_desc">Seeking quality partners across all travel verticals for TripFactory's global market and ORN's worldwide operations.</p>
                     
                     <div class="space-y-4">
                         <div class="flex items-start">
@@ -504,51 +635,51 @@
                                 <i class="fas fa-building text-white text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900">City Hotels</h4>
-                                <p class="text-sm text-gray-600">3 to 5-star properties in gateway cities</p>
+                                <h4 class="font-semibold text-gray-900" data-translate="accommodation">Accommodation Providers</h4>
+                                <p class="text-sm text-gray-600" data-translate="accommodation_desc">Hotels, resorts, serviced apartments, vacation rentals</p>
                             </div>
                         </div>
                         <div class="flex items-start">
                             <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-water text-white text-sm"></i>
+                                <i class="fas fa-plane text-white text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900">Resort Properties</h4>
-                                <p class="text-sm text-gray-600">Beach, mountain, experiential destinations</p>
+                                <h4 class="font-semibold text-gray-900" data-translate="airlines">Airlines & Aviation</h4>
+                                <p class="text-sm text-gray-600" data-translate="airlines_desc">Scheduled carriers, charter operators, private aviation</p>
                             </div>
                         </div>
                         <div class="flex items-start">
                             <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-gem text-white text-sm"></i>
+                                <i class="fas fa-bus text-white text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900">Boutique & Luxury</h4>
-                                <p class="text-sm text-gray-600">Unique properties with character</p>
+                                <h4 class="font-semibold text-gray-900" data-translate="transport">Ground Transport</h4>
+                                <p class="text-sm text-gray-600" data-translate="transport_desc">Coach companies, car rental, rail operators, transfer services</p>
                             </div>
                         </div>
                         <div class="flex items-start">
                             <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-users text-white text-sm"></i>
+                                <i class="fas fa-ticket-alt text-white text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900">MICE Venues</h4>
-                                <p class="text-sm text-gray-600">Conference and group-friendly</p>
+                                <h4 class="font-semibold text-gray-900" data-translate="experiences">Attractions & Experiences</h4>
+                                <p class="text-sm text-gray-600" data-translate="experiences_desc">Theme parks, museums, tours, activities, dining</p>
                             </div>
                         </div>
                         <div class="flex items-start">
                             <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mr-4 mt-1 flex-shrink-0">
-                                <i class="fas fa-utensils text-white text-sm"></i>
+                                <i class="fas fa-handshake text-white text-sm"></i>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-gray-900">Indian Cuisine Ready</h4>
-                                <p class="text-sm text-gray-600">Kitchen facilities for Indian groups</p>
+                                <h4 class="font-semibold text-gray-900" data-translate="dmc">Local DMCs</h4>
+                                <p class="text-sm text-gray-600" data-translate="dmc_desc">Destination management companies for partnership</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 rounded-3xl p-8">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Priority Destinations 2025-2026</h3>
+                <div class="bg-white rounded-3xl p-8 shadow-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6" data-translate="priority_destinations">Priority Destinations 2026-2027</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-3">
                             <div class="flex items-center text-sm">
@@ -625,11 +756,11 @@
     </section>
 
     <!-- Benefits -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Partnership Benefits</h2>
-                <p class="text-gray-600">Why leading hotels choose the TripFactory-ORN ecosystem</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="partnership_benefits">Partnership Benefits</h2>
+                <p class="text-gray-600" data-translate="benefits_desc">Why leading travel suppliers choose the TripFactory-ORN ecosystem</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -637,48 +768,48 @@
                     <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
                         <i class="fas fa-chart-line text-2xl text-tripfactory-blue"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Guaranteed Volume</h3>
-                    <p class="text-gray-600 text-sm">Annual room night commitments from India's largest holiday company. 500K+ travellers.</p>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2" data-translate="benefit_1_title">Guaranteed Volume</h3>
+                    <p class="text-gray-600 text-sm" data-translate="benefit_1_desc">Annual commitments across all travel verticals. 500K+ travellers.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 border border-gray-200 card-hover">
                     <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
                         <i class="fas fa-dollar-sign text-2xl text-green-600"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Better Margins</h3>
-                    <p class="text-gray-600 text-sm">Direct net rates without OTA commission. Save 20-30% on distribution costs.</p>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2" data-translate="benefit_2_title">Better Margins</h3>
+                    <p class="text-gray-600 text-sm" data-translate="benefit_2_desc">Direct net rates without intermediary commission. Save 20-30% on distribution costs.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 border border-gray-200 card-hover">
                     <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center mb-4">
                         <i class="fas fa-bolt text-2xl text-purple-600"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Fast Payment</h3>
-                    <p class="text-gray-600 text-sm">30-day settlement via Nexus DMC. No 60-90 day delays.</p>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2" data-translate="benefit_3_title">Fast Payment</h3>
+                    <p class="text-gray-600 text-sm" data-translate="benefit_3_desc">30-day settlement via Nexus DMC. No 60-90 day delays.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 border border-gray-200 card-hover">
                     <div class="w-14 h-14 bg-orange-100 rounded-2xl flex items-center justify-center mb-4">
                         <i class="fas fa-globe text-2xl text-orange-600"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">India Market Access</h3>
-                    <p class="text-gray-600 text-sm">Tap into India's booming outbound market through TripFactory's network.</p>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2" data-translate="benefit_4_title">Global Market Access</h3>
+                    <p class="text-gray-600 text-sm" data-translate="benefit_4_desc">Tap into 104 nationalities through TripFactory's worldwide network.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 border border-gray-200 card-hover">
                     <div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center mb-4">
                         <i class="fas fa-headset text-2xl text-red-600"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Local Support</h3>
-                    <p class="text-gray-600 text-sm">ORN's on-ground teams handle guest experience in 5 continents.</p>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2" data-translate="benefit_5_title">Local Support</h3>
+                    <p class="text-gray-600 text-sm" data-translate="benefit_5_desc">ORN's on-ground teams handle operations in 5 continents.</p>
                 </div>
 
                 <div class="bg-white rounded-2xl p-6 border border-gray-200 card-hover">
                     <div class="w-14 h-14 bg-teal-100 rounded-2xl flex items-center justify-center mb-4">
                         <i class="fas fa-shield-alt text-2xl text-teal-600"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">Quality Guests</h3>
-                    <p class="text-gray-600 text-sm">Pre-verified, high-spending Indian and global travellers. Low complaint risk.</p>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2" data-translate="benefit_6_title">Quality Guests</h3>
+                    <p class="text-gray-600 text-sm" data-translate="benefit_6_desc">Pre-verified, high-spending global travellers. Low complaint risk.</p>
                 </div>
             </div>
 
@@ -686,27 +817,27 @@
                 <div class="grid md:grid-cols-3 gap-8 text-center">
                     <div>
                         <div class="text-4xl font-bold mb-2">500K+</div>
-                        <div class="text-blue-100">Indian Travellers</div>
+                        <div class="text-blue-100" data-translate="stat_1">Global Travellers</div>
                     </div>
                     <div>
                         <div class="text-4xl font-bold mb-2">104</div>
-                        <div class="text-blue-100">Nationalities Served</div>
+                        <div class="text-blue-100" data-translate="stat_2">Nationalities Served</div>
                     </div>
                     <div>
                         <div class="text-4xl font-bold mb-2">0%</div>
-                        <div class="text-blue-100">OTA Commission</div>
+                        <div class="text-blue-100" data-translate="stat_3">Intermediary Commission</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Process -->
-    <section class="py-16 bg-white">
+    <!-- How It Works -->
+    <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Partnership Process</h2>
-                <p class="text-gray-600">From ITB introduction to first booking</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="process_title">Partnership Process</h2>
+                <p class="text-gray-600" data-translate="process_desc">From introduction to first booking</p>
             </div>
 
             <div class="relative">
@@ -715,74 +846,135 @@
                 <div class="grid md:grid-cols-5 gap-8 relative">
                     <div class="text-center">
                         <div class="w-16 h-16 bg-tripfactory-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10 border-4 border-white shadow-lg">1</div>
-                        <h4 class="font-bold text-gray-900 mb-2">Meet at ITB</h4>
-                        <p class="text-sm text-gray-600">Introduction and evaluation</p>
+                        <h4 class="font-bold text-gray-900 mb-2" data-translate="step_1">Initial Meeting</h4>
+                        <p class="text-sm text-gray-600" data-translate="step_1_desc">Introduction and capability review</p>
                     </div>
                     <div class="text-center">
                         <div class="w-16 h-16 bg-tripfactory-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10 border-4 border-white shadow-lg">2</div>
-                        <h4 class="font-bold text-gray-900 mb-2">Rate Agreement</h4>
-                        <p class="text-sm text-gray-600">Net rates with Nexus DMC</p>
+                        <h4 class="font-bold text-gray-900 mb-2" data-translate="step_2">Rate Agreement</h4>
+                        <p class="text-sm text-gray-600" data-translate="step_2_desc">Net rates with Nexus DMC</p>
                     </div>
                     <div class="text-center">
                         <div class="w-16 h-16 bg-tripfactory-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10 border-4 border-white shadow-lg">3</div>
-                        <h4 class="font-bold text-gray-900 mb-2">Integration</h4>
-                        <p class="text-sm text-gray-600">API setup (7-14 days)</p>
+                        <h4 class="font-bold text-gray-900 mb-2" data-translate="step_3">Integration</h4>
+                        <p class="text-sm text-gray-600" data-translate="step_3_desc">API setup (7-14 days)</p>
                     </div>
                     <div class="text-center">
                         <div class="w-16 h-16 bg-tripfactory-blue text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10 border-4 border-white shadow-lg">4</div>
-                        <h4 class="font-bold text-gray-900 mb-2">Live Bookings</h4>
-                        <p class="text-sm text-gray-600">Guests arrive, ORN manages</p>
+                        <h4 class="font-bold text-gray-900 mb-2" data-translate="step_4">Live Bookings</h4>
+                        <p class="text-sm text-gray-600" data-translate="step_4_desc">Guests arrive, ORN manages ground</p>
                     </div>
                     <div class="text-center">
                         <div class="w-16 h-16 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold relative z-10 border-4 border-white shadow-lg">5</div>
-                        <h4 class="font-bold text-gray-900 mb-2">Growth</h4>
-                        <p class="text-sm text-gray-600">Quarterly reviews</p>
+                        <h4 class="font-bold text-gray-900 mb-2" data-translate="step_5">Growth</h4>
+                        <p class="text-sm text-gray-600" data-translate="step_5_desc">Quarterly reviews</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ISO Certification Only (No HCL) -->
-    <section class="py-16 bg-gray-50">
+    <!-- Trust & Governance -->
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-200 max-w-2xl mx-auto text-center">
-                <div class="flex items-center justify-center mb-6">
-                    <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mr-4">
-                        <i class="fas fa-certificate text-3xl text-white"></i>
-                    </div>
-                    <div class="text-left">
-                        <div class="text-sm text-gray-500">Certified</div>
-                        <div class="text-2xl font-bold text-gray-900">ISO 27001:2022</div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6" data-translate="trust_title">Trust & Governance</h2>
+                    <p class="text-gray-600 mb-8" data-translate="trust_desc">Highest standards of data protection and operational transparency.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-check-circle text-tripfactory-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 text-sm" data-translate="trust_1_title">Opt-in Only</h4>
+                                <p class="text-xs text-gray-600" data-translate="trust_1_desc">Communication consent</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-chart-bar text-tripfactory-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 text-sm" data-translate="trust_2_title">Monthly Reporting</h4>
+                                <p class="text-xs text-gray-600" data-translate="trust_2_desc">Performance dashboards</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-lock text-tripfactory-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 text-sm" data-translate="trust_3_title">Data Protection</h4>
+                                <p class="text-xs text-gray-600" data-translate="trust_3_desc">Travel fulfillment only</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3 flex-shrink-0">
+                                <i class="fas fa-users-cog text-tripfactory-blue"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 text-sm" data-translate="trust_4_title">Quarterly Reviews</h4>
+                                <p class="text-xs text-gray-600" data-translate="trust_4_desc">Leadership optimization</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <p class="text-gray-600 mb-6">Information Security Management certified. Your data and your guests' data protected to the highest international standards.</p>
-                <div class="flex items-center justify-center space-x-6 pt-6 border-t border-gray-100">
-                    <img src="./tripfactory-logo.png" alt="TripFactory" class="h-8 w-auto opacity-50">
-                    <img src="./orn-logo.png" alt="ORN" class="h-8 w-auto opacity-50">
-                    <img src="./nexus-logo.png" alt="Nexus" class="h-8 w-auto opacity-50">
+
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-gray-200">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mr-4">
+                            <i class="fas fa-certificate text-3xl text-white"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm text-gray-500">Certified</div>
+                            <div class="text-2xl font-bold text-gray-900">ISO 27001:2022</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6" data-translate="iso_desc">Information Security Management certified. Your data protected to highest international standards.</p>
+                    <div class="border-t border-gray-200 pt-6">
+                        <div class="flex items-center justify-between text-sm mb-2">
+                            <span class="text-gray-600">Part of</span>
+                            <span class="font-bold text-gray-900">$60B HCL Group</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm mb-2">
+                            <span class="text-gray-600">Global Workforce</span>
+                            <span class="font-bold text-gray-900">226,000+</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-600">Delivery Centers</span>
+                            <span class="font-bold text-gray-900">200+ Worldwide</span>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <div class="flex items-center justify-center space-x-6">
+                            <img src="./tripfactory-logo.png" alt="TripFactory" class="h-8 w-auto opacity-50">
+                            <img src="./orn-logo.png" alt="ORN" class="h-8 w-auto opacity-50">
+                            <img src="./nexus-logo.png" alt="Nexus" class="h-8 w-auto opacity-50">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quote -->
+    <!-- Quote Section -->
     <section class="py-16 bg-tripfactory-blue text-white">
         <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center">
             <i class="fas fa-quote-left text-4xl text-blue-300 mb-6 opacity-50"></i>
-            <blockquote class="text-2xl lg:text-3xl font-light leading-relaxed mb-8">
-                "Partner with TripFactory and ORN to access India's booming outbound travel market with reliable volume, faster payments, and accountable delivery."
+            <blockquote class="text-2xl lg:text-3xl font-light leading-relaxed mb-8" data-translate="quote">
+                "Partner with TripFactory and ORN to access the global travel market with reliable volume, faster payments, and accountable delivery across all travel verticals."
             </blockquote>
             <div class="flex items-center justify-center space-x-4">
                 <img src="./tripfactory-logo.png" alt="TripFactory" class="h-8 w-auto brightness-0 invert">
                 <span class="text-blue-200">+</span>
                 <img src="./orn-logo.png" alt="ORN" class="h-8 w-auto brightness-0 invert">
             </div>
-            <p class="text-blue-200 mt-4 text-sm">ITB Berlin 2025</p>
         </div>
     </section>
 
-    <!-- Contact Info -->
+    <!-- Contact Section -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="bg-white rounded-3xl shadow-xl p-12 text-center">
@@ -791,30 +983,37 @@
                     <span class="text-gray-300 text-2xl">|</span>
                     <img src="./orn-logo.png" alt="ORN" class="h-12 w-auto">
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Meet Us at ITB Berlin 2025</h2>
-                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Visit our stand to discuss how TripFactory and ORN can drive reliable Indian and global volume to your property.</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="contact_title">Start Your Partnership</h2>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto" data-translate="contact_desc">Contact our European headquarters to discuss how TripFactory and ORN can drive reliable global volume to your business.</p>
                 
-                <div class="grid md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-                    <div class="text-center">
+                <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                    <div class="text-center p-6 bg-gray-50 rounded-2xl">
                         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-calendar text-2xl text-tripfactory-blue"></i>
+                            <i class="fas fa-building text-2xl text-tripfactory-blue"></i>
                         </div>
-                        <div class="font-semibold text-gray-900">March 4-6, 2025</div>
-                        <div class="text-sm text-gray-600">Messe Berlin</div>
+                        <div class="font-semibold text-gray-900 mb-2" data-translate="hq_title">European Headquarters</div>
+                        <div class="text-sm text-gray-600">
+                            17 Hanover Square<br>
+                            London W1S 1BN<br>
+                            United Kingdom
+                        </div>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center p-6 bg-gray-50 rounded-2xl">
                         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-envelope text-2xl text-tripfactory-blue"></i>
                         </div>
-                        <div class="font-semibold text-gray-900">sahil.n@ornholidays.com</div>
-                        <div class="text-sm text-gray-600">Pre-show contact</div>
+                        <div class="font-semibold text-gray-900 mb-2" data-translate="email_title">Email</div>
+                        <div class="text-sm text-gray-600">euro@tripfactory.com</div>
                     </div>
-                    <div class="text-center">
+                    <div class="text-center p-6 bg-gray-50 rounded-2xl">
                         <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-globe text-2xl text-tripfactory-blue"></i>
                         </div>
-                        <div class="font-semibold text-gray-900">www.tripfactory.com</div>
-                        <div class="text-sm text-gray-600">Learn more</div>
+                        <div class="font-semibold text-gray-900 mb-2" data-translate="web_title">Websites</div>
+                        <div class="text-sm text-gray-600">
+                            www.tripfactory.com<br>
+                            www.ornholidays.com
+                        </div>
                     </div>
                 </div>
             </div>
@@ -830,7 +1029,7 @@
                         <img src="./tripfactory-logo.png" alt="TripFactory" class="h-8 w-auto brightness-0 invert">
                         <img src="./orn-logo.png" alt="ORN" class="h-8 w-auto brightness-0 invert">
                     </div>
-                    <p class="text-gray-400 text-sm mb-4">India's largest holiday company + Global DMC network.</p>
+                    <p class="text-gray-400 text-sm mb-4">Global holiday company + Worldwide DMC network. Part of $60B HCL Group.</p>
                     <img src="./nexus-logo.png" alt="Nexus DMC" class="h-6 w-auto opacity-50">
                 </div>
                 <div>
@@ -852,17 +1051,17 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-semibold mb-4">Contact</h4>
+                    <h4 class="font-semibold mb-4" data-translate="footer_contact">Contact</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li>sahil.n@ornholidays.com</li>
+                        <li>euro@tripfactory.com</li>
+                        <li>17 Hanover Square, London</li>
                         <li>www.tripfactory.com</li>
                         <li>www.ornholidays.com</li>
-                        <li>ITB Berlin 2025</li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 text-sm">© 2025 TripFactory & ORN. Part of Nexus DMC. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">© 2026 TripFactory & ORN. Part of Nexus DMC. All rights reserved.</p>
                 <div class="flex items-center space-x-4 mt-4 md:mt-0">
                     <span class="text-xs text-gray-600">Certified</span>
                     <span class="px-3 py-1 bg-gray-800 text-gray-300 text-xs rounded-full">ISO 27001:2022</span>
@@ -870,6 +1069,943 @@
             </div>
         </div>
     </footer>
+
+    <!-- Translation Script -->
+    <script>
+        const translations = {
+            en: {
+                global_partner: "Global Travel Partner",
+                strategic_travel: "Strategic Travel",
+                partnerships: "Partnerships",
+                hero_desc: "Connect with <strong>TripFactory</strong> — a leading global holiday travel company — and <strong>ORN</strong> — our worldwide DMC network. Direct distribution, guaranteed volume, zero intermediaries across hotels, flights, ground services and attractions.",
+                global_travellers: "Global Travellers",
+                nationalities: "Nationalities",
+                continents: "Continents",
+                ecosystem_title: "The TripFactory-ORN Ecosystem",
+                ecosystem_desc: "Three powerful brands, one seamless global network delivering exceptional travel experiences worldwide.",
+                tf_tagline: "Global Holiday Travel Company",
+                tf_1: "500,000+ global travellers annually",
+                tf_2: "Worldwide retail presence",
+                tf_3: "B2C and B2B holiday packages",
+                tf_4: "Customised group tours",
+                tf_5: "MICE and corporate travel",
+                orn_tagline: "Global DMC & Operations Network",
+                orn_1: "On-ground operations in 5 continents",
+                orn_2: "Owned vehicles & local teams",
+                orn_3: "24/7 support & escalation",
+                orn_4: "Direct supplier relationships",
+                orn_5: "104 nationalities served",
+                nexus_1: "Unified global DMC network",
+                nexus_2: "Standardised quality across regions",
+                nexus_3: "Centralised contracting",
+                nexus_4: "Technology-enabled operations",
+                nexus_5: "Part of $60B HCL Group",
+                what_we_do: "What TripFactory Does",
+                what_we_do_desc: "TripFactory is a leading global holiday travel platform, connecting millions of travellers with curated experiences worldwide.",
+                b2c_title: "B2C Holiday Packages",
+                b2c_desc: "Direct-to-consumer customised holidays, honeymoon packages, family vacations across 50+ countries.",
+                b2b_title: "B2B Travel Agent Network",
+                b2b_desc: "Empowering 10,000+ travel agents with competitive rates and destination support.",
+                mice_title: "MICE & Corporate Travel",
+                mice_desc: "Meetings, incentives, conferences for leading corporations worldwide.",
+                group_title: "Group Tours",
+                group_desc: "Scheduled departures to Europe, Southeast Asia, Middle East with guaranteed departures.",
+                by_numbers: "TripFactory by Numbers",
+                travellers_annually: "Travellers Annually",
+                agent_partners: "Travel Agent Partners",
+                countries_covered: "Countries Covered",
+                source_markets: "Source Markets",
+                key_markets: "Key Markets",
+                markets_list: "Europe, Southeast Asia, Middle East, USA, Australia, New Zealand, Indian Subcontinent, East Asia",
+                partnership_services: "Strategic Partnership Services",
+                partnership_desc: "Comprehensive travel solutions across the entire value chain. Partner with us for direct access to global distribution.",
+                hotels_title: "Hotels & Accommodation",
+                hotels_desc: "City hotels, resorts, boutique properties, serviced apartments. All categories from 3 to 5-star.",
+                hotel_1: "Guaranteed room nights",
+                hotel_2: "Direct net rates",
+                hotel_3: "MICE blocks",
+                flights_title: "Flights & Air",
+                flights_desc: "Charter flights, scheduled air, private aviation. Group bookings and individual seats.",
+                flight_1: "Group allocations",
+                flight_2: "Charter partnerships",
+                flight_3: "Interline deals",
+                ground_title: "Ground Services",
+                ground_desc: "Transfers, coach tours, car rentals, rail passes. End-to-end ground transportation.",
+                ground_1: "Own fleet partnerships",
+                ground_2: "Multi-lingual guides",
+                ground_3: "24/7 operations",
+                attractions_title: "Attractions & Experiences",
+                attractions_desc: "Theme parks, museums, shows, activities, dining. Curated experiences for all segments.",
+                attraction_1: "Skip-the-line access",
+                attraction_2: "Group rates",
+                attraction_3: "Exclusive experiences",
+                model_comparison: "Traditional vs. TripFactory-ORN",
+                model_desc: "Stop losing margin to middlemen. Our direct model puts you in control.",
+                traditional: "Traditional Model",
+                trad_1: "Customer → Agent → Wholesaler → OTA → DMC → Supplier",
+                trad_2: "20-30% commission stack",
+                trad_3: "Delayed payments (60-90 days)",
+                lower_revenue: "Lower net revenue",
+                your_business: "Your Business",
+                direct_2: "Single direct contract",
+                direct_3: "30-day fast settlement",
+                higher_revenue: "Higher revenue + Quality guests",
+                global_footprint: "Global Footprint, Local Execution",
+                global_desc: "ORN owns the last mile in 5 continents. Direct operations, not outsourcing.",
+                europe: "Europe",
+                middle_east: "Middle East",
+                asia_pacific: "Asia-Pacific",
+                north_america: "North America",
+                south_america: "South America",
+                partnership_criteria: "Partnership Criteria",
+                criteria_desc: "Seeking quality partners across all travel verticals for TripFactory's global market and ORN's worldwide operations.",
+                accommodation: "Accommodation Providers",
+                accommodation_desc: "Hotels, resorts, serviced apartments, vacation rentals",
+                airlines: "Airlines & Aviation",
+                airlines_desc: "Scheduled carriers, charter operators, private aviation",
+                transport: "Ground Transport",
+                transport_desc: "Coach companies, car rental, rail operators, transfer services",
+                experiences: "Attractions & Experiences",
+                experiences_desc: "Theme parks, museums, tours, activities, dining",
+                dmc: "Local DMCs",
+                dmc_desc: "Destination management companies for partnership",
+                priority_destinations: "Priority Destinations 2026-2027",
+                partnership_benefits: "Partnership Benefits",
+                benefits_desc: "Why leading travel suppliers choose the TripFactory-ORN ecosystem",
+                benefit_1_title: "Guaranteed Volume",
+                benefit_1_desc: "Annual commitments across all travel verticals. 500K+ travellers.",
+                benefit_2_title: "Better Margins",
+                benefit_2_desc: "Direct net rates without intermediary commission. Save 20-30% on distribution costs.",
+                benefit_3_title: "Fast Payment",
+                benefit_3_desc: "30-day settlement via Nexus DMC. No 60-90 day delays.",
+                benefit_4_title: "Global Market Access",
+                benefit_4_desc: "Tap into 104 nationalities through TripFactory's worldwide network.",
+                benefit_5_title: "Local Support",
+                benefit_5_desc: "ORN's on-ground teams handle operations in 5 continents.",
+                benefit_6_title: "Quality Guests",
+                benefit_6_desc: "Pre-verified, high-spending global travellers. Low complaint risk.",
+                stat_1: "Global Travellers",
+                stat_2: "Nationalities Served",
+                stat_3: "Intermediary Commission",
+                process_title: "Partnership Process",
+                process_desc: "From introduction to first booking",
+                step_1: "Initial Meeting",
+                step_1_desc: "Introduction and capability review",
+                step_2: "Rate Agreement",
+                step_2_desc: "Net rates with Nexus DMC",
+                step_3: "Integration",
+                step_3_desc: "API setup (7-14 days)",
+                step_4: "Live Bookings",
+                step_4_desc: "Guests arrive, ORN manages ground",
+                step_5: "Growth",
+                step_5_desc: "Quarterly reviews",
+                trust_title: "Trust & Governance",
+                trust_desc: "Highest standards of data protection and operational transparency.",
+                trust_1_title: "Opt-in Only",
+                trust_1_desc: "Communication consent",
+                trust_2_title: "Monthly Reporting",
+                trust_2_desc: "Performance dashboards",
+                trust_3_title: "Data Protection",
+                trust_3_desc: "Travel fulfillment only",
+                trust_4_title: "Quarterly Reviews",
+                trust_4_desc: "Leadership optimization",
+                iso_desc: "Information Security Management certified. Your data protected to highest international standards.",
+                quote: "Partner with TripFactory and ORN to access the global travel market with reliable volume, faster payments, and accountable delivery across all travel verticals.",
+                contact_title: "Start Your Partnership",
+                contact_desc: "Contact our European headquarters to discuss how TripFactory and ORN can drive reliable global volume to your business.",
+                hq_title: "European Headquarters",
+                email_title: "Email",
+                web_title: "Websites",
+                footer_contact: "Contact"
+            },
+            es: {
+                global_partner: "Socio Global de Viajes",
+                strategic_travel: "Asociaciones de Viaje",
+                partnerships: "Estratégicas",
+                hero_desc: "Conecte con <strong>TripFactory</strong> — una empresa líder de viajes vacacionales globales — y <strong>ORN</strong> — nuestra red mundial de DMC. Distribución directa, volumen garantizado, cero intermediarios en hoteles, vuelos, servicios terrestres y atracciones.",
+                global_travellers: "Viajeros Globales",
+                nationalities: "Nacionalidades",
+                continents: "Continentes",
+                ecosystem_title: "El Ecosistema TripFactory-ORN",
+                ecosystem_desc: "Tres marcas poderosas, una red global perfecta que ofrece experiencias de viaje excepcionales en todo el mundo.",
+                tf_tagline: "Empresa Global de Viajes Vacacionales",
+                tf_1: "500,000+ viajeros globales anualmente",
+                tf_2: "Presencia minorista mundial",
+                tf_3: "Paquetes vacacionales B2C y B2B",
+                tf_4: "Tours grupales personalizados",
+                tf_5: "Viajes MICE y corporativos",
+                orn_tagline: "Red Global de DMC y Operaciones",
+                orn_1: "Operaciones en terreno en 5 continentes",
+                orn_2: "Vehículos propios y equipos locales",
+                orn_3: "Soporte y escalación 24/7",
+                orn_4: "Relaciones directas con proveedores",
+                orn_5: "104 nacionalidades atendidas",
+                nexus_1: "Red DMC global unificada",
+                nexus_2: "Calidad estandarizada en regiones",
+                nexus_3: "Contratación centralizada",
+                nexus_4: "Operaciones habilitadas por tecnología",
+                nexus_5: "Parte del Grupo HCL de $60B",
+                what_we_do: "Qué Hace TripFactory",
+                what_we_do_desc: "TripFactory es una plataforma líder de viajes vacacionales globales, conectando millones de viajeros con experiencias seleccionadas en todo el mundo.",
+                b2c_title: "Paquetes Vacacionales B2C",
+                b2c_desc: "Vacaciones personalizadas directas al consumidor, paquetes de luna de miel, vacaciones familiares en más de 50 países.",
+                b2b_title: "Red de Agentes de Viajes B2B",
+                b2b_desc: "Capacitando a más de 10,000 agentes de viajes con tarifas competitivas y soporte de destino.",
+                mice_title: "Viajes MICE y Corporativos",
+                mice_desc: "Reuniones, incentivos, conferencias para corporaciones líderes en todo el mundo.",
+                group_title: "Tours Grupales",
+                group_desc: "Salidas programadas a Europa, Sudeste Asiático, Medio Oriente con salidas garantizadas.",
+                by_numbers: "TripFactory en Números",
+                travellers_annually: "Viajeros Anualmente",
+                agent_partners: "Socios Agentes",
+                countries_covered: "Países Cubiertos",
+                source_markets: "Mercados de Origen",
+                key_markets: "Mercados Clave",
+                markets_list: "Europa, Sudeste Asiático, Medio Oriente, EE.UU., Australia, Nueva Zelanda, Subcontinente Indio, Asia Oriental",
+                partnership_services: "Servicios de Asociación Estratégica",
+                partnership_desc: "Soluciones integrales de viajes en toda la cadena de valor. Asóciese con nosotros para acceso directo a distribución global.",
+                hotels_title: "Hoteles y Alojamiento",
+                hotels_desc: "Hoteles urbanos, resorts, propiedades boutique, apartamentos con servicios. Todas las categorías de 3 a 5 estrellas.",
+                hotel_1: "Noches de habitación garantizadas",
+                hotel_2: "Tarifas netas directas",
+                hotel_3: "Bloques MICE",
+                flights_title: "Vuelos y Aéreo",
+                flights_desc: "Vuelos chárter, aéreos programados, aviación privada. Reservas grupales e individuales.",
+                flight_1: "Asignaciones grupales",
+                flight_2: "Asociaciones chárter",
+                flight_3: "Acuerdos interlínea",
+                ground_title: "Servicios Terrestres",
+                ground_desc: "Traslados, tours en autobús, alquiler de autos, pases de tren. Transporte terrestre integral.",
+                ground_1: "Asociaciones de flota propia",
+                ground_2: "Guías multilingües",
+                ground_3: "Operaciones 24/7",
+                attractions_title: "Atracciones y Experiencias",
+                attractions_desc: "Parques temáticos, museos, espectáculos, actividades, restaurantes. Experiencias seleccionadas para todos los segmentos.",
+                attraction_1: "Acceso sin filas",
+                attraction_2: "Tarifas grupales",
+                attraction_3: "Experiencias exclusivas",
+                model_comparison: "Tradicional vs. TripFactory-ORN",
+                model_desc: "Deje de perder margen con intermediarios. Nuestro modelo directo le pone en control.",
+                traditional: "Modelo Tradicional",
+                trad_1: "Cliente → Agente → Mayorista → OTA → DMC → Proveedor",
+                trad_2: "Pila de comisión 20-30%",
+                trad_3: "Pagos retrasados (60-90 días)",
+                lower_revenue: "Menor ingreso neto",
+                your_business: "Su Negocio",
+                direct_2: "Contrato directo único",
+                direct_3: "Liquidación rápida 30 días",
+                higher_revenue: "Mayor ingreso + Huéspedes de calidad",
+                global_footprint: "Huella Global, Ejecución Local",
+                global_desc: "ORN posee la última milla en 5 continentes. Operaciones directas, no outsourcing.",
+                europe: "Europa",
+                middle_east: "Medio Oriente",
+                asia_pacific: "Asia-Pacífico",
+                north_america: "Norteamérica",
+                south_america: "Sudamérica",
+                partnership_criteria: "Criterios de Asociación",
+                criteria_desc: "Buscando socios de calidad en todos los verticales de viajes para el mercado global de TripFactory y operaciones mundiales de ORN.",
+                accommodation: "Proveedores de Alojamiento",
+                accommodation_desc: "Hoteles, resorts, apartamentos con servicios, alquileres vacacionales",
+                airlines: "Aerolíneas y Aviación",
+                airlines_desc: "Transportistas programados, operadores chárter, aviación privada",
+                transport: "Transporte Terrestre",
+                transport_desc: "Empresas de autobuses, alquiler de autos, operadores ferroviarios, servicios de traslado",
+                experiences: "Atracciones y Experiencias",
+                experiences_desc: "Parques temáticos, museos, tours, actividades, restaurantes",
+                dmc: "DMCs Locales",
+                dmc_desc: "Empresas de gestión de destinos para asociación",
+                priority_destinations: "Destinos Prioritarios 2026-2027",
+                partnership_benefits: "Beneficios de la Asociación",
+                benefits_desc: "Por qué los principales proveedores de viajes eligen el ecosistema TripFactory-ORN",
+                benefit_1_title: "Volumen Garantizado",
+                benefit_1_desc: "Compromisos anuales en todos los verticales de viajes. 500K+ viajeros.",
+                benefit_2_title: "Mejores Márgenes",
+                benefit_2_desc: "Tarifas netas directas sin comisión de intermediarios. Ahorre 20-30% en costos de distribución.",
+                benefit_3_title: "Pago Rápido",
+                benefit_3_desc: "Liquidación a 30 días vía Nexus DMC. Sin retrasos de 60-90 días.",
+                benefit_4_title: "Acceso a Mercado Global",
+                benefit_4_desc: "Acceda a 104 nacionalidades a través de la red mundial de TripFactory.",
+                benefit_5_title: "Soporte Local",
+                benefit_5_desc: "Los equipos de ORN manejan operaciones en 5 continentes.",
+                benefit_6_title: "Huéspedes de Calidad",
+                benefit_6_desc: "Viajeros globales preverificados de alto gasto. Bajo riesgo de quejas.",
+                stat_1: "Viajeros Globales",
+                stat_2: "Nacionalidades Atendidas",
+                stat_3: "Comisión de Intermediario",
+                process_title: "Proceso de Asociación",
+                process_desc: "De la introducción a la primera reserva",
+                step_1: "Reunión Inicial",
+                step_1_desc: "Introducción y revisión de capacidades",
+                step_2: "Acuerdo de Tarifas",
+                step_2_desc: "Tarifas netas con Nexus DMC",
+                step_3: "Integración",
+                step_3_desc: "Configuración API (7-14 días)",
+                step_4: "Reservas en Vivo",
+                step_4_desc: "Llegada de huéspedes, ORN gestiona terreno",
+                step_5: "Crecimiento",
+                step_5_desc: "Revisiones trimestrales",
+                trust_title: "Confianza y Gobernanza",
+                trust_desc: "Los más altos estándares de protección de datos y transparencia operativa.",
+                trust_1_title: "Solo Opt-in",
+                trust_1_desc: "Consentimiento de comunicación",
+                trust_2_title: "Reportes Mensuales",
+                trust_2_desc: "Paneles de rendimiento",
+                trust_3_title: "Protección de Datos",
+                trust_3_desc: "Solo para cumplimiento de viajes",
+                trust_4_title: "Revisiones Trimestrales",
+                trust_4_desc: "Optimización de liderazgo",
+                iso_desc: "Certificado en Gestión de Seguridad de la Información. Sus datos protegidos con los más altos estándares internacionales.",
+                quote: "Asóciese con TripFactory y ORN para acceder al mercado de viajes global con volumen confiable, pagos más rápidos y entrega responsable en todos los verticales de viajes.",
+                contact_title: "Inicie Su Asociación",
+                contact_desc: "Contacte nuestra sede europea para discutir cómo TripFactory y ORN pueden impulsar volumen global confiable a su negocio.",
+                hq_title: "Sede Europea",
+                email_title: "Correo Electrónico",
+                web_title: "Sitios Web",
+                footer_contact: "Contacto"
+            },
+            de: {
+                global_partner: "Globaler Reisepartner",
+                strategic_travel: "Strategische Reise-",
+                partnerships: "Partnerschaften",
+                hero_desc: "Verbinden Sie sich mit <strong>TripFactory</strong> — einem führenden globalen Urlaubsreiseunternehmen — und <strong>ORN</strong> — unserem weltweiten DMC-Netzwerk. Direktvertrieb, garantiertes Volumen, keine Zwischenhändler bei Hotels, Flügen, Bodenservices und Attraktionen.",
+                global_travellers: "Globale Reisende",
+                nationalities: "Nationalitäten",
+                continents: "Kontinente",
+                ecosystem_title: "Das TripFactory-ORN-Ökosystem",
+                ecosystem_desc: "Drei starke Marken, ein nahtloses globales Netzwerk, das außergewöhnliche Reiseerlebnisse weltweit bietet.",
+                tf_tagline: "Globales Urlaubsreiseunternehmen",
+                tf_1: "500.000+ globale Reisende jährlich",
+                tf_2: "Weltweite Einzelhandelspräsenz",
+                tf_3: "B2C- und B2B-Urlaubspakete",
+                tf_4: "Maßgeschneiderte Gruppenreisen",
+                tf_5: "MICE- und Geschäftsreisen",
+                orn_tagline: "Globales DMC- & Operationsnetzwerk",
+                orn_1: "Vor-Ort-Operationen auf 5 Kontinenten",
+                orn_2: "Eigene Fahrzeuge & lokale Teams",
+                orn_3: "24/7-Support & Eskalation",
+                orn_4: "Direkte Lieferantenbeziehungen",
+                orn_5: "104 Nationalitäten bedient",
+                nexus_1: "Vereinigtes globales DMC-Netzwerk",
+                nexus_2: "Standardisierte Qualität in Regionen",
+                nexus_3: "Zentralisierte Vertragsgestaltung",
+                nexus_4: "Technologiegestützte Operationen",
+                nexus_5: "Teil der $60B HCL-Gruppe",
+                what_we_do: "Was TripFactory Macht",
+                what_we_do_desc: "TripFactory ist eine führende globale Urlaubsreiseplattform, die Millionen von Reisenden mit kuratierten Erlebnissen weltweit verbindet.",
+                b2c_title: "B2C-Urlaubspakete",
+                b2c_desc: "Direkte Verbraucher-maßgeschneiderte Urlauben, Flitterwochenpakete, Familienurlaube in über 50 Ländern.",
+                b2b_title: "B2B-Reisebüro-Netzwerk",
+                b2b_desc: "Empowerment von über 10.000 Reisebüros mit wettbewerbsfähigen Preisen und Zielunterstützung.",
+                mice_title: "MICE- & Geschäftsreisen",
+                mice_desc: "Meetings, Incentives, Konferenzen für führende Unternehmen weltweit.",
+                group_title: "Gruppenreisen",
+                group_desc: "Geplante Abflüge nach Europa, Südostasien, Naher Osten mit garantierten Abflügen.",
+                by_numbers: "TripFactory in Zahlen",
+                travellers_annually: "Reisende Jährlich",
+                agent_partners: "Agentur-Partner",
+                countries_covered: "Abgedeckte Länder",
+                source_markets: "Herkunftsmärkte",
+                key_markets: "Schlüsselmärkte",
+                markets_list: "Europa, Südostasien, Naher Osten, USA, Australien, Neuseeland, Indischer Subkontinent, Ostasien",
+                partnership_services: "Strategische Partnerschaftsdienste",
+                partnership_desc: "Umfassende Reiselösungen über die gesamte Wertschöpfungskette. Partnern Sie mit uns für direkten Zugang zur globalen Distribution.",
+                hotels_title: "Hotels & Unterkünfte",
+                hotels_desc: "Stadthotels, Resorts, Boutique-Immobilien, Serviced Apartments. Alle Kategorien von 3 bis 5 Sternen.",
+                hotel_1: "Garantierte Zimmernächte",
+                hotel_2: "Direktnettopreise",
+                hotel_3: "MICE-Blöcke",
+                flights_title: "Flüge & Luftfahrt",
+                flights_desc: "Charterflüge, Linienflüge, Privatluftfahrt. Gruppenbuchungen und Einzelsitze.",
+                flight_1: "Gruppenzuteilungen",
+                flight_2: "Charter-Partnerschaften",
+                flight_3: "Interline-Vereinbarungen",
+                ground_title: "Bodenservices",
+                ground_desc: "Transfers, Bustouren, Autovermietung, Bahnpässe. End-to-End-Bodentransport.",
+                ground_1: "Eigenflotten-Partnerschaften",
+                ground_2: "Mehrsprachige Guides",
+                ground_3: "24/7-Operationen",
+                attractions_title: "Attraktionen & Erlebnisse",
+                attractions_desc: "Themenparks, Museen, Shows, Aktivitäten, Gastronomie. Kuratierte Erlebnisse für alle Segmente.",
+                attraction_1: "Bevorzugter Einlass",
+                attraction_2: "Gruppenpreise",
+                attraction_3: "Exklusive Erlebnisse",
+                model_comparison: "Traditionell vs. TripFactory-ORN",
+                model_desc: "Hören Sie auf, Marge an Zwischenhändler zu verlieren. Unser Direktmodell gibt Ihnen die Kontrolle.",
+                traditional: "Traditionelles Modell",
+                trad_1: "Kunde → Agent → Großhändler → OTA → DMC → Lieferant",
+                trad_2: "20-30% Kommissionsstapel",
+                trad_3: "Verzögerte Zahlungen (60-90 Tage)",
+                lower_revenue: "Niedrigere Nettoerlöse",
+                your_business: "Ihr Unternehmen",
+                direct_2: "Einzelner Direktvertrag",
+                direct_3: "30-Tage-Schnellabwicklung",
+                higher_revenue: "Höhere Erlöse + Qualitätsgäste",
+                global_footprint: "Globale Präsenz, Lokale Ausführung",
+                global_desc: "ORN besitzt die letzte Meile auf 5 Kontinenten. Direkte Operationen, kein Outsourcing.",
+                europe: "Europa",
+                middle_east: "Naher Osten",
+                asia_pacific: "Asien-Pazifik",
+                north_america: "Nordamerika",
+                south_america: "Südamerika",
+                partnership_criteria: "Partnerschaftskriterien",
+                criteria_desc: "Suche nach qualitativ hochwertigen Partnern in allen Reisevertikalen für den globalen Markt von TripFactory und weltweite Operationen von ORN.",
+                accommodation: "Unterkunftsanbieter",
+                accommodation_desc: "Hotels, Resorts, Serviced Apartments, Ferienunterkünfte",
+                airlines: "Fluggesellschaften & Luftfahrt",
+                airlines_desc: "Linienfluggesellschaften, Charteranbieter, Privatluftfahrt",
+                transport: "Bodentransport",
+                transport_desc: "Busunternehmen, Autovermietung, Bahnbetreiber, Transferservices",
+                experiences: "Attraktionen & Erlebnisse",
+                experiences_desc: "Themenparks, Museen, Touren, Aktivitäten, Gastronomie",
+                dmc: "Lokale DMCs",
+                dmc_desc: "Destination Management Companies zur Partnerschaft",
+                priority_destinations: "Prioritätsziele 2026-2027",
+                partnership_benefits: "Partnerschaftsvorteile",
+                benefits_desc: "Warum führende Reiseanbieter das TripFactory-ORN-Ökosystem wählen",
+                benefit_1_title: "Garantiertes Volumen",
+                benefit_1_desc: "Jährliche Verpflichtungen in allen Reisevertikalen. 500K+ Reisende.",
+                benefit_2_title: "Bessere Margen",
+                benefit_2_desc: "Direkte Nettopreise ohne Zwischenhändlerprovision. Sparen Sie 20-30% bei Vertriebskosten.",
+                benefit_3_title: "Schnelle Zahlung",
+                benefit_3_desc: "30-Tage-Abrechnung via Nexus DMC. Keine 60-90-Tage-Verzögerungen.",
+                benefit_4_title: "Globaler Marktzugang",
+                benefit_4_desc: "Zugang zu 104 Nationalitäten durch das weltweite Netzwerk von TripFactory.",
+                benefit_5_title: "Lokale Unterstützung",
+                benefit_5_desc: "ORN's Vor-Ort-Teams managen Operationen auf 5 Kontinenten.",
+                benefit_6_title: "Qualitätsgäste",
+                benefit_6_desc: "Vorverifizierte, high-spending globale Reisende. Geringes Beschwerderisiko.",
+                stat_1: "Globale Reisende",
+                stat_2: "Bediente Nationalitäten",
+                stat_3: "Zwischenhändlerprovision",
+                process_title: "Partnerschaftsprozess",
+                process_desc: "Von der Einführung zur ersten Buchung",
+                step_1: "Erstgespräch",
+                step_1_desc: "Vorstellung und Fähigkeitsbewertung",
+                step_2: "Preisvereinbarung",
+                step_2_desc: "Nettopreise mit Nexus DMC",
+                step_3: "Integration",
+                step_3_desc: "API-Setup (7-14 Tage)",
+                step_4: "Live-Buchungen",
+                step_4_desc: "Gäste kommen an, ORN managt Boden",
+                step_5: "Wachstum",
+                step_5_desc: "Vierteljährliche Reviews",
+                trust_title: "Vertrauen & Governance",
+                trust_desc: "Höchste Standards des Datenschutzes und der operativen Transparenz.",
+                trust_1_title: "Nur Opt-in",
+                trust_1_desc: "Kommunikationseinwilligung",
+                trust_2_title: "Monatliche Berichte",
+                trust_2_desc: "Leistungs-Dashboards",
+                trust_3_title: "Datenschutz",
+                trust_3_desc: "Nur Reiseerfüllung",
+                trust_4_title: "Vierteljährliche Reviews",
+                trust_4_desc: "Führungsoptimierung",
+                iso_desc: "Zertifiziertes Informations-Sicherheitsmanagement. Ihre Daten nach höchsten internationalen Standards geschützt.",
+                quote: "Partnern Sie mit TripFactory und ORN, um Zugang zum globalen Reisemarkt mit zuverlässigem Volumen, schnelleren Zahlungen und verantwortungsvoller Lieferung in allen Reisevertikalen zu erhalten.",
+                contact_title: "Starten Sie Ihre Partnerschaft",
+                contact_desc: "Kontaktieren Sie unser europäisches Hauptquartier, um zu besprechen, wie TripFactory und ORN zuverlässiges globales Volumen in Ihr Geschäft treiben können.",
+                hq_title: "Europäisches Hauptquartier",
+                email_title: "E-Mail",
+                web_title: "Webseiten",
+                footer_contact: "Kontakt"
+            },
+            fr: {
+                global_partner: "Partenaire de Voyage Mondial",
+                strategic_travel: "Partenariats de Voyage",
+                partnerships: "Stratégiques",
+                hero_desc: "Connectez-vous avec <strong>TripFactory</strong> — une entreprise leader de voyages de vacances mondiale — et <strong>ORN</strong> — notre réseau DMC mondial. Distribution directe, volume garanti, zéro intermédiaires pour les hôtels, vols, services terrestres et attractions.",
+                global_travellers: "Voyageurs Mondiaux",
+                nationalities: "Nationalités",
+                continents: "Continents",
+                ecosystem_title: "L'Écosystème TripFactory-ORN",
+                ecosystem_desc: "Trois marques puissantes, un réseau mondial fluide offrant des expériences de voyage exceptionnelles dans le monde entier.",
+                tf_tagline: "Entreprise Mondiale de Voyages de Vacances",
+                tf_1: "500 000+ voyageurs mondiaux annuellement",
+                tf_2: "Présence mondiale au détail",
+                tf_3: "Forfaits vacances B2C et B2B",
+                tf_4: "Circuits groupes personnalisés",
+                tf_5: "Voyages MICE et corporate",
+                orn_tagline: "Réseau Mondial DMC & Opérations",
+                orn_1: "Opérations sur le terrain sur 5 continents",
+                orn_2: "Véhicules propres & équipes locales",
+                orn_3: "Support et escalade 24/7",
+                orn_4: "Relations directes fournisseurs",
+                orn_5: "104 nationalités servies",
+                nexus_1: "Réseau DMC mondial unifié",
+                nexus_2: "Qualité standardisée entre régions",
+                nexus_3: "Contractualisation centralisée",
+                nexus_4: "Opérations technologiques",
+                nexus_5: "Partie du Groupe HCL $60B",
+                what_we_do: "Ce Que Fait TripFactory",
+                what_we_do_desc: "TripFactory est une plateforme leader de voyages de vacances mondiale, connectant des millions de voyageurs avec des expériences sélectionnées dans le monde entier.",
+                b2c_title: "Forfaits Vacances B2C",
+                b2c_desc: "Vacances personnalisées directes aux consommateurs, forfaits lune de miel, vacances familiales dans plus de 50 pays.",
+                b2b_title: "Réseau d'Agents de Voyage B2B",
+                b2b_desc: "Autonomisation de plus de 10 000 agents de voyage avec des tarifs compétitifs et support de destination.",
+                mice_title: "Voyages MICE & Corporate",
+                mice_desc: "Réunions, incentives, conférences pour les grandes entreprises mondiales.",
+                group_title: "Circuits Groupes",
+                group_desc: "Départs programmés vers l'Europe, l'Asie du Sud-Est, le Moyen-Orient avec départs garantis.",
+                by_numbers: "TripFactory en Chiffres",
+                travellers_annually: "Voyageurs Annuellement",
+                agent_partners: "Partenaires Agents",
+                countries_covered: "Pays Couverts",
+                source_markets: "Marchés Sources",
+                key_markets: "Marchés Clés",
+                markets_list: "Europe, Asie du Sud-Est, Moyen-Orient, États-Unis, Australie, Nouvelle-Zélande, Sous-continent Indien, Asie de l'Est",
+                partnership_services: "Services de Partenariat Stratégique",
+                partnership_desc: "Solutions de voyage complètes sur toute la chaîne de valeur. Associez-vous avec nous pour un accès direct à la distribution mondiale.",
+                hotels_title: "Hôtels & Hébergement",
+                hotels_desc: "Hôtels de ville, resorts, propriétés boutique, appartements avec services. Toutes catégories de 3 à 5 étoiles.",
+                hotel_1: "Nuitées garanties",
+                hotel_2: "Tarifs nets directs",
+                hotel_3: "Blocs MICE",
+                flights_title: "Vols & Aérien",
+                flights_desc: "Vols charter, lignes régulières, aviation privée. Réservations groupes et sièges individuels.",
+                flight_1: "Attributions groupes",
+                flight_2: "Partenariats charter",
+                flight_3: "Accords interlignes",
+                ground_title: "Services Terrestres",
+                ground_desc: "Transferts, circuits en autocar, location de voitures, passes ferroviaires. Transport terrestre de bout en bout.",
+                ground_1: "Partenariats flotte propre",
+                ground_2: "Guides multilingues",
+                ground_3: "Opérations 24/7",
+                attractions_title: "Attractions & Expériences",
+                attractions_desc: "Parcs à thème, musées, spectacles, activités, restauration. Expériences sélectionnées pour tous segments.",
+                attraction_1: "Accès coupe-file",
+                attraction_2: "Tarifs groupes",
+                attraction_3: "Expériences exclusives",
+                model_comparison: "Traditionnel vs. TripFactory-ORN",
+                model_desc: "Arrêtez de perdre des marges aux intermédiaires. Notre modèle direct vous met au contrôle.",
+                traditional: "Modèle Traditionnel",
+                trad_1: "Client → Agent → Grossiste → OTA → DMC → Fournisseur",
+                trad_2: "Pile de commission 20-30%",
+                trad_3: "Paiements retardés (60-90 jours)",
+                lower_revenue: "Revenu net inférieur",
+                your_business: "Votre Entreprise",
+                direct_2: "Contrat direct unique",
+                direct_3: "Règlement rapide 30 jours",
+                higher_revenue: "Revenu supérieur + Clients de qualité",
+                global_footprint: "Empreinte Mondiale, Exécution Locale",
+                global_desc: "ORN possède le dernier kilomètre sur 5 continents. Opérations directes, pas d'externalisation.",
+                europe: "Europe",
+                middle_east: "Moyen-Orient",
+                asia_pacific: "Asie-Pacifique",
+                north_america: "Amérique du Nord",
+                south_america: "Amérique du Sud",
+                partnership_criteria: "Critères de Partenariat",
+                criteria_desc: "Recherche de partenaires de qualité dans tous les verticaux de voyage pour le marché mondial de TripFactory et les opérations mondiales d'ORN.",
+                accommodation: "Fournisseurs d'Hébergement",
+                accommodation_desc: "Hôtels, resorts, appartements avec services, locations de vacances",
+                airlines: "Compagnies Aériennes & Aviation",
+                airlines_desc: "Transporteurs réguliers, opérateurs charter, aviation privée",
+                transport: "Transport Terrestre",
+                transport_desc: "Compagnies d'autocars, location de voitures, opérateurs ferroviaires, services de transfert",
+                experiences: "Attractions & Expériences",
+                experiences_desc: "Parcs à thème, musées, circuits, activités, restauration",
+                dmc: "DMCs Locaux",
+                dmc_desc: "Sociétés de gestion de destination pour partenariat",
+                priority_destinations: "Destinations Prioritaires 2026-2027",
+                partnership_benefits: "Avantages du Partenariat",
+                benefits_desc: "Pourquoi les principaux fournisseurs de voyage choisissent l'écosystème TripFactory-ORN",
+                benefit_1_title: "Volume Garanti",
+                benefit_1_desc: "Engagements annuels dans tous les verticaux de voyage. 500K+ voyageurs.",
+                benefit_2_title: "Meilleures Marges",
+                benefit_2_desc: "Tarifs nets directs sans commission d'intermédiaire. Économisez 20-30% sur les coûts de distribution.",
+                benefit_3_title: "Paiement Rapide",
+                benefit_3_desc: "Règlement à 30 jours via Nexus DMC. Pas de retards de 60-90 jours.",
+                benefit_4_title: "Accès au Marché Mondial",
+                benefit_4_desc: "Accédez à 104 nationalités via le réseau mondial de TripFactory.",
+                benefit_5_title: "Support Local",
+                benefit_5_desc: "Les équipes sur le terrain d'ORN gèrent les opérations sur 5 continents.",
+                benefit_6_title: "Clients de Qualité",
+                benefit_6_desc: "Voyageurs mondiaux prévérifiés à dépenses élevées. Faible risque de plaintes.",
+                stat_1: "Voyageurs Mondiaux",
+                stat_2: "Nationalités Servies",
+                stat_3: "Commission d'Intermédiaire",
+                process_title: "Processus de Partenariat",
+                process_desc: "De l'introduction à la première réservation",
+                step_1: "Réunion Initiale",
+                step_1_desc: "Introduction et évaluation des capacités",
+                step_2: "Accord de Tarifs",
+                step_2_desc: "Tarifs nets avec Nexus DMC",
+                step_3: "Intégration",
+                step_3_desc: "Configuration API (7-14 jours)",
+                step_4: "Réservations en Direct",
+                step_4_desc: "Arrivée des clients, ORN gère le terrain",
+                step_5: "Croissance",
+                step_5_desc: "Revisions trimestrielles",
+                trust_title: "Confiance & Gouvernance",
+                trust_desc: "Normes les plus élevées de protection des données et de transparence opérationnelle.",
+                trust_1_title: "Opt-in Uniquement",
+                trust_1_desc: "Consentement de communication",
+                trust_2_title: "Rapports Mensuels",
+                trust_2_desc: "Tableaux de bord de performance",
+                trust_3_title: "Protection des Données",
+                trust_3_desc: "Uniquement pour l'exécution des voyages",
+                trust_4_title: "Revisions Trimestrielles",
+                trust_4_desc: "Optimisation du leadership",
+                iso_desc: "Certifié Management de la Sécurité de l'Information. Vos données protégées selon les normes internationales les plus élevées.",
+                quote: "Associez-vous avec TripFactory et ORN pour accéder au marché des voyages mondial avec un volume fiable, des paiements plus rapides et une livraison responsable dans tous les verticaux de voyage.",
+                contact_title: "Commencez Votre Partenariat",
+                contact_desc: "Contactez notre siège européen pour discuter de la façon dont TripFactory et ORN peuvent générer un volume mondial fiable pour votre entreprise.",
+                hq_title: "Siège Européen",
+                email_title: "Email",
+                web_title: "Sites Web",
+                footer_contact: "Contact"
+            },
+            ar: {
+                global_partner: "شريك السفر العالمي",
+                strategic_travel: "شراكات السفر",
+                partnerships: "الاستراتيجية",
+                hero_desc: "تواصل مع <strong>TripFactory</strong> — شركة رائدة في سفر العطلات العالمية — و<strong>ORN</strong> — شبكتنا العالمية لإدارة الوجهات. توزيع مباشر، حجم مضمون، صفر وسطاء في الفنادق والرحلات الجوية والخدمات الأرضية والمعالم السياحية.",
+                global_travellers: "المسافرون العالميون",
+                nationalities: "الجنسيات",
+                continents: "القارات",
+                ecosystem_title: "نظام TripFactory-ORN البيئي",
+                ecosystem_desc: "ثلاث علامات تجارية قوية، شبكة عالمية سلسة واحدة تقدم تجارب سفر استثنائية في جميع أنحاء العالم.",
+                tf_tagline: "شركة السفر العالمية للعطلات",
+                tf_1: "500,000+ مسافر عالمي سنوياً",
+                tf_2: "التواجد العالمي في التجزئة",
+                tf_3: "باقات العطلات B2C وB2B",
+                tf_4: "جولات جماعية مخصصة",
+                tf_5: "سفر MICE والشركات",
+                orn_tagline: "شبكة إدارة الوجهات والعمليات العالمية",
+                orn_1: "عمليات على الأرض في 5 قارات",
+                orn_2: "مركبات مملوكة وفرق محلية",
+                orn_3: "دعم وتصعيد 24/7",
+                orn_4: "علاقات مباشرة مع الموردين",
+                orn_5: "104 جنسيات يتم خدمتها",
+                nexus_1: "شبكة إدارة وجهات عالمية موحدة",
+                nexus_2: "جودة موحدة عبر المناطق",
+                nexus_3: "تعاقد مركزي",
+                nexus_4: "عمليات ممكنة تقنياً",
+                nexus_5: "جزء من مجموعة HCL بقيمة 60 مليار دولار",
+                what_we_do: "ما تقوم به TripFactory",
+                what_we_do_desc: "TripFactory هي منصة رائدة للسفر العالمي للعطلات، تربط الملايين من المسافرين بتجارب منظمة في جميع أنحاء العالم.",
+                b2c_title: "باقات العطلات B2C",
+                b2c_desc: "عطلات مخصصة مباشرة للمستهلك، باقات شهر العسل، إجازات عائلية في أكثر من 50 دولة.",
+                b2b_title: "شبكة وكلاء السفر B2B",
+                b2b_desc: "تمكين أكثر من 10,000 وكيل سفر بأسعار تنافسية ودعم الوجهات.",
+                mice_title: "سفر MICE والشركات",
+                mice_desc: "اجتماعات وحوافز ومؤتمرات للشركات الرائدة في جميع أنحاء العالم.",
+                group_title: "الجولات الجماعية",
+                group_desc: "مغادرات مجدولة إلى أوروبا وجنوب شرق آسيا والشرق الأوسط مع مغادرات مضمونة.",
+                by_numbers: "TripFactory بالأرقام",
+                travellers_annually: "المسافرون سنوياً",
+                agent_partners: "شركاء الوكلاء",
+                countries_covered: "الدول المشمولة",
+                source_markets: "أسواق المصدر",
+                key_markets: "الأسواق الرئيسية",
+                markets_list: "أوروبا، جنوب شرق آسيا، الشرق الأوسط، الولايات المتحدة، أستراليا، نيوزيلندا، شبه القارة الهندية، شرق آسيا",
+                partnership_services: "خدمات الشراكة الاستراتيجية",
+                partnership_desc: "حلول سفر شاملة عبر سلسلة القيمة بالكامل. شاركنا للوصول المباشر إلى التوزيع العالمي.",
+                hotels_title: "الفنادق والإقامة",
+                hotels_desc: "فنادق المدن، المنتجعات، العقارات البوتيكية، الشقق المخدمة. جميع الفئات من 3 إلى 5 نجوم.",
+                hotel_1: "ليالي مضمونة",
+                hotel_2: "أسعار صافية مباشرة",
+                hotel_3: "كتل MICE",
+                flights_title: "الرحلات الجوية والطيران",
+                flights_desc: "رحلات شارتر، خطوط مجدولة، طيران خاص. حجوزات جماعية ومقاعد فردية.",
+                flight_1: "تخصيصات جماعية",
+                flight_2: "شراكات الشارتر",
+                flight_3: "صفقات بين الخطوط",
+                ground_title: "الخدمات الأرضية",
+                ground_desc: "النقل، جولات الحافلات، تأجير السيارات، تذاكر القطار. نقل أرضي شامل.",
+                ground_1: "شراكات الأسطول المملوك",
+                ground_2: "مرشدون متعددو اللغات",
+                ground_3: "عمليات 24/7",
+                attractions_title: "المعالم والتجارب",
+                attractions_desc: "مدن الملاهي، المتاحف، العروض، الأنشطة، المطاعم. تجارب منظمة لجميع الشرائح.",
+                attraction_1: "دخول بدون انتظار",
+                attraction_2: "أسعار جماعية",
+                attraction_3: "تجارب حصرية",
+                model_comparison: "التقليدي مقابل TripFactory-ORN",
+                model_desc: "توقف عن فقدان الهامش للوسطاء. نموذجنا المباشر يضعك في السيطرة.",
+                traditional: "النموذج التقليدي",
+                trad_1: "العميل → الوكيل → الجملة → OTA → إدارة الوجهات → المورد",
+                trad_2: "كومة عمولة 20-30%",
+                trad_3: "مدفوعات متأخرة (60-90 يوماً)",
+                lower_revenue: "إيرادات صافية أقل",
+                your_business: "عملك",
+                direct_2: "عقد مباشر واحد",
+                direct_3: "تسوية سريعة 30 يوماً",
+                higher_revenue: "إيرادات أعلى + ضيوف نوعية",
+                global_footprint: "بصمة عالمية، تنفيذ محلي",
+                global_desc: "ORN تمتلك الميل الأخير في 5 قارات. عمليات مباشرة، لا الاستعانة بمصادر خارجية.",
+                europe: "أوروبا",
+                middle_east: "الشرق الأوسط",
+                asia_pacific: "آسيا والمحيط الهادئ",
+                north_america: "أمريكا الشمالية",
+                south_america: "أمريكا الجنوبية",
+                partnership_criteria: "معايير الشراكة",
+                criteria_desc: "البحث عن شركاء نوعيين في جميع مجالات السفر لسوق TripFactory العالمي وعمليات ORN العالمية.",
+                accommodation: "مزودو الإقامة",
+                accommodation_desc: "الفنادق والمنتجعات والشقق المخدمة وإيجارات العطلات",
+                airlines: "شركات الطيران والطيران",
+                airlines_desc: "شركات النقل المجدولة، مشغلي الشارتر، الطيران الخاص",
+                transport: "النقل البري",
+                transport_desc: "شركات الحافلات، تأجير السيارات، مشغلي السكك الحديدية، خدمات النقل",
+                experiences: "المعالم والتجارب",
+                experiences_desc: "مدن الملاهي والمتاحف والجولات والأنشطة والمطاعم",
+                dmc: "شركات إدارة الوجهات المحلية",
+                dmc_desc: "شركات إدارة الوجهات للشراكة",
+                priority_destinations: "الوجهات ذات الأولوية 2026-2027",
+                partnership_benefits: "فوائد الشراكة",
+                benefits_desc: "لماذا تختار موردي السفر الرائدين نظام TripFactory-ORN البيئي",
+                benefit_1_title: "حجم مضمون",
+                benefit_1_desc: "التزامات سنوية في جميع مجالات السفر. 500K+ مسافر.",
+                benefit_2_title: "هوامش أفضل",
+                benefit_2_desc: "أسعار صافية مباشرة بدون عمولة وسيط. وفّر 20-30% من تكاليف التوزيع.",
+                benefit_3_title: "دفع سريع",
+                benefit_3_desc: "تسوية 30 يوماً عبر Nexus DMC. بدون تأخير 60-90 يوماً.",
+                benefit_4_title: "الوصول إلى السوق العالمية",
+                benefit_4_desc: "الوصول إلى 104 جنسيات من خلال شبكة TripFactory العالمية.",
+                benefit_5_title: "دعم محلي",
+                benefit_5_desc: "فرق ORN الميدانية تدير العمليات في 5 قارات.",
+                benefit_6_title: "ضيوف نوعية",
+                benefit_6_desc: "مسافرون عالميون مسبقو التحقق من الإنفاق العالي. مخاطر شكاوى منخفضة.",
+                stat_1: "المسافرون العالميون",
+                stat_2: "الجنسيات المخدمة",
+                stat_3: "عمولة الوسيط",
+                process_title: "عملية الشراكة",
+                process_desc: "من المقدمة إلى أول حجز",
+                step_1: "الاجتماع الأولي",
+                step_1_desc: "المقدمة وتقييم القدرات",
+                step_2: "اتفاق الأسعار",
+                step_2_desc: "أسعار صافية مع Nexus DMC",
+                step_3: "التكامل",
+                step_3_desc: "إعداد API (7-14 يوماً)",
+                step_4: "الحجوزات المباشرة",
+                step_4_desc: "وصول الضيوف، ORN تدير الأرض",
+                step_5: "النمو",
+                step_5_desc: "مراجعات ربع سنوية",
+                trust_title: "الثقة والحوكمة",
+                trust_desc: "أعلى معايير حماية البيانات والشفافية التشغيلية.",
+                trust_1_title: "الاشتراك فقط",
+                trust_1_desc: "موافقة التواصل",
+                trust_2_title: "التقارير الشهرية",
+                trust_2_desc: "لوحات معلومات الأداء",
+                trust_3_title: "حماية البيانات",
+                trust_3_desc: "لتنفيذ السفر فقط",
+                trust_4_title: "المراجعات ربع السنوية",
+                trust_4_desc: "تحسين القيادة",
+                iso_desc: "معتمد في إدارة أمن المعلومات. بياناتك محمية بأعلى المعايير الدولية.",
+                quote: "شارك مع TripFactory وORN للوصول إلى سوق السفر العالمي بحجم موثوق، ومدفوعات أسرع، وتسليم مسؤول في جميع مجالات السفر.",
+                contact_title: "ابدأ شراكتك",
+                contact_desc: "تواصل مع مقرنا الأوروبي لمناقشة كيف يمكن لـ TripFactory وORN دفع حجم عالمي موثوق لعملك.",
+                hq_title: "المقر الأوروبي",
+                email_title: "البريد الإلكتروني",
+                web_title: "المواقع الإلكترونية",
+                footer_contact: "اتصل"
+            },
+            hi: {
+                global_partner: "वैश्विक यात्रा भागीदार",
+                strategic_travel: "सामरिक यात्रा",
+                partnerships: "साझेदारी",
+                hero_desc: "<strong>TripFactory</strong> — एक अग्रणी वैश्विक छुट्टी यात्रा कंपनी — और <strong>ORN</strong> — हमारे विश्वव्यापी DMC नेटवर्क से जुड़ें। सीधा वितरण, गारंटीकृत मात्रा, होटल, उड़ानों, भूमि सेवाओं और आकर्षणों में शून्य बिचौलिए।",
+                global_travellers: "वैश्विक यात्री",
+                nationalities: "राष्ट्रीयताएं",
+                continents: "महाद्वीप",
+                ecosystem_title: "TripFactory-ORN पारिस्थितिकी तंत्र",
+                ecosystem_desc: "तीन शक्तिशाली ब्रांड, एक सहज वैश्विक नेटवर्क जो दुनिया भर में असाधारण यात्रा अनुभव प्रदान करता है।",
+                tf_tagline: "वैश्विक छुट्टी यात्रा कंपनी",
+                tf_1: "500,000+ वैश्विक यात्री वार्षिक",
+                tf_2: "दुनिया भर में खुदरा उपस्थिति",
+                tf_3: "B2C और B2B छुट्टी पैकेज",
+                tf_4: "अनुकूलित समूह यात्राएं",
+                tf_5: "MICE और कॉर्पोरेट यात्रा",
+                orn_tagline: "वैश्विक DMC और संचालन नेटवर्क",
+                orn_1: "5 महाद्वीपों में जमीनी संचालन",
+                orn_2: "स्वामित्व वाले वाहन और स्थानीय टीमें",
+                orn_3: "24/7 समर्थन और एस्केलेशन",
+                orn_4: "प्रत्यक्ष आपूर्तिकर्ता संबंध",
+                orn_5: "104 राष्ट्रीयताओं की सेवा",
+                nexus_1: "एकीकृत वैश्विक DMC नेटवर्क",
+                nexus_2: "क्षेत्रों में मानकीकृत गुणवत्ता",
+                nexus_3: "केंद्रीकृत अनुबंध",
+                nexus_4: "प्रौद्योगिकी-सक्षम संचालन",
+                nexus_5: "$60B HCL समूह का हिस्सा",
+                what_we_do: "TripFactory क्या करता है",
+                what_we_do_desc: "TripFactory एक अग्रणी वैश्विक छुट्टी यात्रा मंच है, जो दुनिया भर में करोड़ों यात्रियों को चुनिंदा अनुभवों से जोड़ता है।",
+                b2c_title: "B2C छुट्टी पैकेज",
+                b2c_desc: "सीधे उपभोक्ता के लिए अनुकूलित छुट्टियां, हनीमून पैकेज, 50+ देशों में पारिवारिक अवकाश।",
+                b2b_title: "B2B ट्रैवल एजेंट नेटवर्क",
+                b2b_desc: "10,000+ ट्रैवल एजेंटों को प्रतिस्पर्धी दरों और गंतव्य समर्थन के साथ सशक्त बनाना।",
+                mice_title: "MICE और कॉर्पोरेट यात्रा",
+                mice_desc: "दुनिया भर की अग्रणी निगमों के लिए बैठकें, प्रोत्साहन, सम्मेलन।",
+                group_title: "समूह यात्राएं",
+                group_desc: "यूरोप, दक्षिण पूर्व एशिया, मध्य पूर्व के लिए निर्धारित प्रस्थान गारंटीकृत प्रस्थान के साथ।",
+                by_numbers: "TripFactory संख्याओं में",
+                travellers_annually: "वार्षिक यात्री",
+                agent_partners: "एजेंट भागीदार",
+                countries_covered: "कवर किए गए देश",
+                source_markets: "स्रोत बाजार",
+                key_markets: "प्रमुख बाजार",
+                markets_list: "यूरोप, दक्षिण पूर्व एशिया, मध्य पूर्व, USA, ऑस्ट्रेलिया, न्यूजीलैंड, भारतीय उपमहाद्वीप, पूर्वी एशिया",
+                partnership_services: "सामरिक साझेदारी सेवाएं",
+                partnership_desc: "पूर्ण मूल्य श्रृंखला में व्यापक यात्रा समाधान। वैश्विक वितरण तक सीधी पहुंच के लिए हमारे साथ भागीदारी करें।",
+                hotels_title: "होटल और आवास",
+                hotels_desc: "शहर के होटल, रिसॉर्ट्स, बुटीक संपत्तियां, सर्विस्ड अपार्टमेंट। 3 से 5-स्टार की सभी श्रेणियां।",
+                hotel_1: "गारंटीकृत कमरे की रातें",
+                hotel_2: "प्रत्यक्ष नेट दरें",
+                hotel_3: "MICE ब्लॉक",
+                flights_title: "उड़ानें और हवाई",
+                flights_desc: "चार्टर उड़ानें, निर्धारित हवाई, निजी विमानन। समूह बुकिंग और व्यक्तिगत सीटें।",
+                flight_1: "समूह आवंटन",
+                flight_2: "चार्टर साझेदारी",
+                flight_3: "इंटरलाइन सौदे",
+                ground_title: "भूमि सेवाएं",
+                ground_desc: "ट्रांसफर, कोच टूर, कार किराए पर लेना, रेल पास। अंत से अंत तक भूमि परिवहन।",
+                ground_1: "स्वामित्व वाले बेड़े की साझेदारी",
+                ground_2: "बहुभाषी गाइड",
+                ground_3: "24/7 संचालन",
+                attractions_title: "आकर्षण और अनुभव",
+                attractions_desc: "थीम पार्क, संग्रहालय, शो, गतिविधियां, भोजन। सभी खंडों के लिए चुनिंदा अनुभव।",
+                attraction_1: "लाइन-स्किप पहुंच",
+                attraction_2: "समूह दरें",
+                attraction_3: "विशेष अनुभव",
+                model_comparison: "पारंपरिक बनाम TripFactory-ORN",
+                model_desc: "बिचौलियों को मार्जिन खोना बंद करें। हमारा प्रत्यक्ष मॉडल आपको नियंत्रण में रखता है।",
+                traditional: "पारंपरिक मॉडल",
+                trad_1: "ग्राहक → एजेंट → थोक विक्रेता → OTA → DMC → आपूर्तिकर्ता",
+                trad_2: "20-30% कमीशन स्टैक",
+                trad_3: "देरी से भुगतान (60-90 दिन)",
+                lower_revenue: "कम शुद्ध राजस्व",
+                your_business: "आपका व्यवसाय",
+                direct_2: "एकल प्रत्यक्ष अनुबंध",
+                direct_3: "30-दिवसीय त्वरित निपटान",
+                higher_revenue: "उच्च राजस्व + गुणवत्ता मेहमान",
+                global_footprint: "वैश्विक उपस्थिति, स्थानीय निष्पादन",
+                global_desc: "ORN 5 महाद्वीपों में अंतिम मील का स्वामित्व रखता है। प्रत्यक्ष संचालन, आउटसोर्सिंग नहीं।",
+                europe: "यूरोप",
+                middle_east: "मध्य पूर्व",
+                asia_pacific: "एशिया-प्रशांत",
+                north_america: "उत्तर अमेरिका",
+                south_america: "दक्षिण अमेरिका",
+                partnership_criteria: "साझेदारी मानदंड",
+                criteria_desc: "TripFactory के वैश्विक बाजार और ORN के विश्वव्यापी संचालन के लिए सभी यात्रा ऊर्ध्वाधर में गुणवत्ता भागीदारों की तलाश।",
+                accommodation: "आवास प्रदाता",
+                accommodation_desc: "होटल, रिसॉर्ट्स, सर्विस्ड अपार्टमेंट, अवकाश किराए",
+                airlines: "एयरलाइंस और विमानन",
+                airlines_desc: "निर्धारित वाहक, चार्टर ऑपरेटर, निजी विमानन",
+                transport: "भूमि परिवहन",
+                transport_desc: "कोच कंपनियां, कार किराए पर लेना, रेल ऑपरेटर, ट्रांसफर सेवाएं",
+                experiences: "आकर्षण और अनुभव",
+                experiences_desc: "थीम पार्क, संग्रहालय, टूर, गतिविधियां, भोजन",
+                dmc: "स्थानीय DMC",
+                dmc_desc: "साझेदारी के लिए गंतव्य प्रबंधन कंपनियां",
+                priority_destinations: "प्राथमिकता गंतव्य 2026-2027",
+                partnership_benefits: "साझेदारी लाभ",
+                benefits_desc: "अग्रणी यात्रा आपूर्तिकर्ता TripFactory-ORN पारिस्थितिकी तंत्र क्यों चुनते हैं",
+                benefit_1_title: "गारंटीकृत मात्रा",
+                benefit_1_desc: "सभी यात्रा ऊर्ध्वाधर में वार्षिक प्रतिबद्धताएं। 500K+ यात्री।",
+                benefit_2_title: "बेहतर मार्जिन",
+                benefit_2_desc: "बिचौलिया कमीशन के बिना प्रत्यक्ष नेट दरें। वितरण लागत पर 20-30% बचाएं।",
+                benefit_3_title: "तेज भुगतान",
+                benefit_3_desc: "Nexus DMC के माध्यम से 30-दिवसीय निपटान। 60-90 दिन की देरी नहीं।",
+                benefit_4_title: "वैश्विक बाजार पहुंच",
+                benefit_4_desc: "TripFactory के विश्वव्यापी नेटवर्क के माध्यम से 104 राष्ट्रीयताओं तक पहुंचें।",
+                benefit_5_title: "स्थानीय समर्थन",
+                benefit_5_desc: "ORN की जमीनी टीमें 5 महाद्वीपों में संचालन संभालती हैं।",
+                benefit_6_title: "गुणवत्ता मेहमान",
+                benefit_6_desc: "पूर्व-सत्यापित, उच्च खर्च करने वाले वैश्विक यात्री। कम शिकायत जोखिम।",
+                stat_1: "वैश्विक यात्री",
+                stat_2: "सेवित राष्ट्रीयताएं",
+                stat_3: "बिचौलिया कमीशन",
+                process_title: "साझेदारी प्रक्रिया",
+                process_desc: "परिचय से पहली बुकिंग तक",
+                step_1: "प्रारंभिक बैठक",
+                step_1_desc: "परिचय और क्षमता समीक्षा",
+                step_2: "दर समझौता",
+                step_2_desc: "Nexus DMC के साथ नेट दरें",
+                step_3: "एकीकरण",
+                step_3_desc: "API सेटअप (7-14 दिन)",
+                step_4: "लाइव बुकिंग",
+                step_4_desc: "मेहमान आते हैं, ORN जमीन प्रबंधित करता है",
+                step_5: "वृद्धि",
+                step_5_desc: "त्रैमासिक समीक्षाएं",
+                trust_title: "विश्वास और शासन",
+                trust_desc: "डेटा सुरक्षा और परिचालन पारदर्शिता के उच्चतम मानक।",
+                trust_1_title: "केवल ऑप्ट-इन",
+                trust_1_desc: "संचार सहमति",
+                trust_2_title: "मासिक रिपोर्टिंग",
+                trust_2_desc: "प्रदर्शन डैशबोर्ड",
+                trust_3_title: "डेटा सुरक्षा",
+                trust_3_desc: "केवल यात्रा पूर्ति",
+                trust_4_title: "त्रैमासिक समीक्षाएं",
+                trust_4_desc: "नेतृत्व अनुकूलन",
+                iso_desc: "सूचना सुरक्षा प्रबंधन प्रमाणित। आपका डेटा उच्चतम अंतर्राष्ट्रीय मानकों के अनुसार सुरक्षित।",
+                quote: "TripFactory और ORN के साथ भागीदारी करें ताकि सभी यात्रा ऊर्ध्वाधर में विश्वसनीय मात्रा, तेज भुगतान और जवाबदेह वितरण के साथ वैश्विक यात्रा बाजार तक पहुंच सकें।",
+                contact_title: "अपनी साझेदारी शुरू करें",
+                contact_desc: "चर्चा करने के लिए हमारे यूरोपीय मुख्यालय से संपर्क करें कि TripFactory और ORN कैसे आपके व्यवसाय के लिए विश्वसनीय वैश्विक मात्रा को बढ़ा सकते हैं।",
+                hq_title: "यूरोपीय मुख्यालय",
+                email_title: "ईमेल",
+                web_title: "वेबसाइटें",
+                footer_contact: "संपर्क"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLangDropdown() {
+            const dropdown = document.getElementById('lang-dropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const flagMap = {
+                'en': '🇬🇧',
+                'es': '🇪🇸',
+                'de': '🇩🇪',
+                'fr': '🇫🇷',
+                'ar': '🇸🇦',
+                'hi': '🇮🇳'
+            };
+            const langMap = {
+                'en': 'English',
+                'es': 'Español',
+                'de': 'Deutsch',
+                'fr': 'Français',
+                'ar': 'العربية',
+                'hi': 'हिन्दी'
+            };
+            
+            document.getElementById('current-flag').textContent = flagMap[lang];
+            document.getElementById('current-lang').textContent = langMap[lang];
+            
+            // Update all elements with data-translate attribute
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Handle RTL for Arabic
+            if (lang === 'ar') {
+                document.body.style.direction = 'rtl';
+                document.body.style.textAlign = 'right';
+            } else {
+                document.body.style.direction = 'ltr';
+                document.body.style.textAlign = 'left';
+            }
+
+            toggleLangDropdown();
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('lang-dropdown');
+            const button = event.target.closest('button');
+            if (!button || !button.onclick || button.onclick.toString().indexOf('toggleLangDropdown') === -1) {
+                if (!event.target.closest('.lang-dropdown')) {
+                    dropdown.classList.remove('show');
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
