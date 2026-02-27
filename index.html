@@ -99,6 +99,21 @@
             font-size: 2rem;
             margin-bottom: 1.5rem;
         }
+        .map-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .map-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-800 antialiased">
@@ -483,6 +498,94 @@
         </div>
     </section>
 
+    <!-- Global Presence Map Section -->
+    <section class="py-16 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4" data-translate="global_presence">Global Presence</h2>
+                <p class="text-gray-400 max-w-3xl mx-auto" data-translate="global_presence_desc">ORN Worldwide operates across 5 continents, serving customers from 104 nationalities with direct on-ground operations.</p>
+            </div>
+
+            <div class="map-container bg-gray-800">
+                <img src="./global-map.png" alt="ORN Worldwide Global Map" class="w-full h-auto object-cover">
+                <div class="map-overlay">
+                    <div class="flex flex-col md:flex-row justify-between items-end">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-2">ORN Worldwide</h3>
+                            <p class="text-gray-300">Direct operations in 30+ countries</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 text-right">
+                            <div class="text-4xl font-bold text-green-400">104</div>
+                            <div class="text-sm text-gray-300">Nationalities Served</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-5 gap-6 mt-12">
+                <div class="text-center p-6 bg-gray-800 rounded-2xl border border-gray-700">
+                    <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-landmark text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="europe">Europe</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>9 Stations</li>
+                        <li>100+ Team</li>
+                        <li>59 Tour Buses</li>
+                    </ul>
+                </div>
+
+                <div class="text-center p-6 bg-gray-800 rounded-2xl border border-gray-700">
+                    <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mosque text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="middle_east">Middle East</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>Dubai Hub</li>
+                        <li>Oman & Bahrain</li>
+                        <li>24/7 Support</li>
+                    </ul>
+                </div>
+
+                <div class="text-center p-6 bg-gray-800 rounded-2xl border border-gray-700">
+                    <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-umbrella-beach text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="asia_pacific">Asia-Pacific</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>Melbourne HQ</li>
+                        <li>Bali Operations</li>
+                        <li>20 Vehicles</li>
+                    </ul>
+                </div>
+
+                <div class="text-center p-6 bg-gray-800 rounded-2xl border border-gray-700">
+                    <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-city text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="north_america">North America</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>64-Person Team</li>
+                        <li>NY • LA • Florida</li>
+                        <li>Timezone Aligned</li>
+                    </ul>
+                </div>
+
+                <div class="text-center p-6 bg-gray-800 rounded-2xl border border-gray-700">
+                    <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mountain text-2xl text-white"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2" data-translate="south_america">South America</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>Peru Office</li>
+                        <li>Argentina Hub</li>
+                        <li>Brazil Coverage</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- The Model Comparison -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -549,80 +652,8 @@
         </div>
     </section>
 
-    <!-- Global Presence -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="global_footprint">Global Footprint, Local Execution</h2>
-                <p class="text-gray-600" data-translate="global_desc">ORN owns the last mile in 5 continents. Direct operations, not outsourcing.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-landmark text-2xl text-tripfactory-blue"></i>
-                    </div>
-                    <h3 class="font-bold text-gray-900 mb-2" data-translate="europe">Europe</h3>
-                    <ul class="text-sm text-gray-600 space-y-1">
-                        <li>9 Stations</li>
-                        <li>100+ Team</li>
-                        <li>59 Tour Buses</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-mosque text-2xl text-green-600"></i>
-                    </div>
-                    <h3 class="font-bold text-gray-900 mb-2" data-translate="middle_east">Middle East</h3>
-                    <ul class="text-sm text-gray-600 space-y-1">
-                        <li>Dubai Hub</li>
-                        <li>Oman & Bahrain</li>
-                        <li>24/7 Support</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-umbrella-beach text-2xl text-purple-600"></i>
-                    </div>
-                    <h3 class="font-bold text-gray-900 mb-2" data-translate="asia_pacific">Asia-Pacific</h3>
-                    <ul class="text-sm text-gray-600 space-y-1">
-                        <li>Melbourne HQ</li>
-                        <li>Bali Operations</li>
-                        <li>20 Vehicles</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-city text-2xl text-orange-600"></i>
-                    </div>
-                    <h3 class="font-bold text-gray-900 mb-2" data-translate="north_america">North America</h3>
-                    <ul class="text-sm text-gray-600 space-y-1">
-                        <li>64-Person Team</li>
-                        <li>NY • LA • Florida</li>
-                        <li>Timezone Aligned</li>
-                    </ul>
-                </div>
-
-                <div class="bg-white rounded-2xl p-6 border border-gray-200 text-center card-hover">
-                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-mountain text-2xl text-red-600"></i>
-                    </div>
-                    <h3 class="font-bold text-gray-900 mb-2" data-translate="south_america">South America</h3>
-                    <ul class="text-sm text-gray-600 space-y-1">
-                        <li>Peru Office</li>
-                        <li>Argentina Hub</li>
-                        <li>Brazil Coverage</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Partnership Criteria -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -678,7 +709,7 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-3xl p-8 shadow-xl">
+                <div class="bg-gray-50 rounded-3xl p-8 shadow-xl">
                     <h3 class="text-xl font-bold text-gray-900 mb-6" data-translate="priority_destinations">Priority Destinations 2026-2027</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-3">
@@ -756,7 +787,7 @@
     </section>
 
     <!-- Benefits -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="partnership_benefits">Partnership Benefits</h2>
@@ -833,7 +864,7 @@
     </section>
 
     <!-- How It Works -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4" data-translate="process_title">Partnership Process</h2>
@@ -875,7 +906,7 @@
     </section>
 
     <!-- Trust & Governance -->
-    <section class="py-16 bg-white">
+    <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div>
@@ -1150,8 +1181,8 @@
                 direct_2: "Single direct contract",
                 direct_3: "30-day fast settlement",
                 higher_revenue: "Higher revenue + Quality guests",
-                global_footprint: "Global Footprint, Local Execution",
-                global_desc: "ORN owns the last mile in 5 continents. Direct operations, not outsourcing.",
+                global_presence: "Global Presence",
+                global_presence_desc: "ORN Worldwide operates across 5 continents, serving customers from 104 nationalities with direct on-ground operations.",
                 europe: "Europe",
                 middle_east: "Middle East",
                 asia_pacific: "Asia-Pacific",
@@ -1295,8 +1326,8 @@
                 direct_2: "Contrato directo único",
                 direct_3: "Liquidación rápida 30 días",
                 higher_revenue: "Mayor ingreso + Huéspedes de calidad",
-                global_footprint: "Huella Global, Ejecución Local",
-                global_desc: "ORN posee la última milla en 5 continentes. Operaciones directas, no outsourcing.",
+                global_presence: "Presencia Global",
+                global_presence_desc: "ORN Worldwide opera en 5 continentes, atendiendo clientes de 104 nacionalidades con operaciones directas en terreno.",
                 europe: "Europa",
                 middle_east: "Medio Oriente",
                 asia_pacific: "Asia-Pacífico",
@@ -1440,8 +1471,8 @@
                 direct_2: "Einzelner Direktvertrag",
                 direct_3: "30-Tage-Schnellabwicklung",
                 higher_revenue: "Höhere Erlöse + Qualitätsgäste",
-                global_footprint: "Globale Präsenz, Lokale Ausführung",
-                global_desc: "ORN besitzt die letzte Meile auf 5 Kontinenten. Direkte Operationen, kein Outsourcing.",
+                global_presence: "Globale Präsenz",
+                global_presence_desc: "ORN Worldwide operiert auf 5 Kontinenten und bedient Kunden aus 104 Nationalitäten mit direkten Vor-Ort-Operationen.",
                 europe: "Europa",
                 middle_east: "Naher Osten",
                 asia_pacific: "Asien-Pazifik",
@@ -1585,8 +1616,8 @@
                 direct_2: "Contrat direct unique",
                 direct_3: "Règlement rapide 30 jours",
                 higher_revenue: "Revenu supérieur + Clients de qualité",
-                global_footprint: "Empreinte Mondiale, Exécution Locale",
-                global_desc: "ORN possède le dernier kilomètre sur 5 continents. Opérations directes, pas d'externalisation.",
+                global_presence: "Présence Mondiale",
+                global_presence_desc: "ORN Worldwide opère sur 5 continents, desservant des clients de 104 nationalités avec des opérations directes sur le terrain.",
                 europe: "Europe",
                 middle_east: "Moyen-Orient",
                 asia_pacific: "Asie-Pacifique",
@@ -1730,8 +1761,8 @@
                 direct_2: "عقد مباشر واحد",
                 direct_3: "تسوية سريعة 30 يوماً",
                 higher_revenue: "إيرادات أعلى + ضيوف نوعية",
-                global_footprint: "بصمة عالمية، تنفيذ محلي",
-                global_desc: "ORN تمتلك الميل الأخير في 5 قارات. عمليات مباشرة، لا الاستعانة بمصادر خارجية.",
+                global_presence: "الوجود العالمي",
+                global_presence_desc: "ORN Worldwide تعمل عبر 5 قارات، تخدم العملاء من 104 جنسيات بعمليات مباشرة على الأرض.",
                 europe: "أوروبا",
                 middle_east: "الشرق الأوسط",
                 asia_pacific: "آسيا والمحيط الهادئ",
@@ -1875,8 +1906,8 @@
                 direct_2: "एकल प्रत्यक्ष अनुबंध",
                 direct_3: "30-दिवसीय त्वरित निपटान",
                 higher_revenue: "उच्च राजस्व + गुणवत्ता मेहमान",
-                global_footprint: "वैश्विक उपस्थिति, स्थानीय निष्पादन",
-                global_desc: "ORN 5 महाद्वीपों में अंतिम मील का स्वामित्व रखता है। प्रत्यक्ष संचालन, आउटसोर्सिंग नहीं।",
+                global_presence: "वैश्विक उपस्थिति",
+                global_presence_desc: "ORN Worldwide 5 महाद्वीपों में संचालित होता है, 104 राष्ट्रीयताओं के ग्राहकों को सीधे जमीनी संचालन के साथ सेवा प्रदान करता है।",
                 europe: "यूरोप",
                 middle_east: "मध्य पूर्व",
                 asia_pacific: "एशिया-प्रशांत",
